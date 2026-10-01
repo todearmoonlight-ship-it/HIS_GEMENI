@@ -22,7 +22,7 @@
             background-color: #f0f4f8;
             -webkit-tap-highlight-color: transparent;
         }
-        /* 封面頁背景改為上傳的第二張圖片 */
+        /* 封面頁背景圖 */
         .bg-cover-image {
             background-image: url('Cloud Healthcare Campus Landscape.png');
             background-size: cover;
@@ -49,13 +49,13 @@
             <!-- Top Banner Header -->
             <div class="mt-6 text-center bg-white/40 backdrop-blur-md p-4 rounded-2xl border border-white/60 shadow-sm">
                 <div class="inline-flex items-center gap-2 bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-bold mb-2 shadow-sm">
-                    <i class="fas fa-bullhorn text-yellow-300"></i> 南區業務組
+                    <i class="fas fa-bullhorn text-yellow-300"></i> 南區業務組 誠摯邀請
                 </div>
                 <h1 class="text-xl font-black leading-tight text-blue-950 drop-shadow-sm">
                     基層醫療院所資訊服務系統<br>
                     <span class="text-blue-700 text-2xl">數位轉型觀摩會</span>
                 </h1>
-                <p class="text-xs text-blue-900 mt-1 font-semibold">工作人員任務指引 APP</p>
+                <p class="text-xs text-blue-900 mt-1 font-semibold">工作人員個人任務與流程指引 APP</p>
             </div>
 
             <!-- Bottom Selection Form -->
@@ -197,9 +197,9 @@
     <script>
         // ==================== 全局資料數據庫 ====================
         
-        // 人員與單位分工資料 (42人完整名單)
+        // 人員與單位分工資料 (42人完整名單)[cite: 1]
         const staffData = [
-            // 企劃小組
+            // 企劃小組[cite: 1]
             { name: "韓佩軒", unit: "企劃小組", group: "總督導", leader: "韓佩軒組長、賴大年副組長" },
             { name: "賴大年", unit: "企劃小組", group: "總督導", leader: "韓佩軒組長、賴大年副組長" },
             { name: "蘇專委", unit: "企劃小組", group: "貴賓接待組", leader: "蘇專委" },
@@ -208,7 +208,7 @@
             { name: "林瑜婷", unit: "企劃小組", group: "議事行政組-內場", leader: "黃麗如科長" },
             { name: "李月玲", unit: "企劃小組", group: "報到接待組-外場", leader: "楊顓賓" },
             
-            // 醫務管理科
+            // 醫務管理科[cite: 1]
             { name: "郭俊麟", unit: "醫務管理科", group: "貴賓接待組", leader: "蘇專委" },
             { name: "陳琨勝", unit: "醫務管理科", group: "攝影組", leader: "黃耀德" },
             { name: "郭泰裕", unit: "醫務管理科", group: "攤位組-外場", leader: "郭泰裕" },
@@ -217,7 +217,7 @@
             { name: "曾奕舜", unit: "醫務管理科", group: "攤位組-外場", leader: "郭泰裕" },
             { name: "黃昭瑢", unit: "醫務管理科", group: "報到接待組-外場", leader: "楊顓賓" },
 
-            // 費用科
+            // 費用科[cite: 1]
             { name: "賴阿薪", unit: "費用科", group: "貴賓接待組", leader: "蘇專委" },
             { name: "郭郁伶", unit: "費用科", group: "議事行政組-內場", leader: "黃麗如科長" },
             { name: "洪欀皊", unit: "費用科", group: "貴賓接待組", leader: "蘇專委" },
@@ -225,7 +225,7 @@
             { name: "劉育菁", unit: "費用科", group: "議事行政組-內場", leader: "黃麗如科長" },
             { name: "楊玟蒨", unit: "費用科", group: "議事行政組-內場", leader: "黃麗如科長" },
 
-            // 綜合行政科
+            // 綜合行政科[cite: 1]
             { name: "張巧瑩", unit: "綜合行政科", group: "議事行政組-內場", leader: "黃麗如科長" },
             { name: "陳美璉", unit: "綜合行政科", group: "議事行政組-內場", leader: "黃麗如科長" },
             { name: "蔡一緯", unit: "綜合行政科", group: "司機", leader: "蔡一緯" },
@@ -234,7 +234,7 @@
             { name: "黃耀德", unit: "綜合行政科", group: "攝影組", leader: "黃耀德" },
             { name: "鄭九禎", unit: "綜合行政科", group: "攤位組-外場", leader: "郭泰裕" },
 
-            // 高屏業務組
+            // 高屏業務組[cite: 1]
             { name: "張可冀", unit: "高屏業務組", group: "報到接待組-外場", leader: "楊顓賓" },
             { name: "陳佳玟", unit: "高屏業務組", group: "報到接待組-外場", leader: "楊顓賓" },
             { name: "陳祈君", unit: "高屏業務組", group: "報到接待組-外場", leader: "楊顓賓" },
@@ -244,7 +244,7 @@
             { name: "吳孜威", unit: "高屏業務組", group: "學分組-外場", leader: "梁家瑋" },
             { name: "廖子喬", unit: "高屏業務組", group: "學分組-外場", leader: "梁家瑋" },
 
-            // 承保顧服
+            // 承保顧服[cite: 1]
             { name: "許錦睿", unit: "承保顧服", group: "議事行政組-內場", leader: "黃麗如科長" },
             { name: "王品文", unit: "承保顧服", group: "議事行政組-內場", leader: "黃麗如科長" },
             { name: "吳雪嬌", unit: "承保顧服", group: "議事行政組-內場", leader: "黃麗如科長" },
@@ -254,7 +254,7 @@
             { name: "魏昆茹", unit: "承保顧服", group: "攤位組-外場", leader: "郭泰裕" }
         ];
 
-        // 活動細流時程資料表
+        // 活動細流時程資料表 (每個任務均包含明確獨立地點 location)[cite: 1]
         const scheduleData = [
             // ---------- 10/3 (六) ----------
             {
@@ -262,37 +262,42 @@
                 day: "10/3",
                 time: "13:00 - 17:00",
                 mainProcess: "進場定位與設備佈置彩排",
-                location: "成大醫學院成杏廳",
+                location: "主會場 / 報到處 / 學分區 / 攤位區 / 會場外",
                 tasks: [
                     {
                         group: "議事行政組-內場",
-                        leader: "黃麗如",
+                        location: "主會場",
+                        leader: "麗如",
                         staffs: ["黃麗如", "林瑜婷", "郭郁伶", "黃雅芬"],
-                        detail: "舞台橫幅、布幅、司儀台佈置確認；座位安排、感謝狀、手拿牌備妥；主會場控台/簡報設備測試；司儀彩排"
+                        detail: "舞台橫幅、兩側巨型布幅、司儀台佈置確認；座位安排、感謝狀、手拿牌備妥；主會場控台/簡報等設備及物品測試；司儀彩排"
                     },
                     {
                         group: "報到接待組-外場",
-                        leader: "楊顓賓",
+                        location: "報到處",
+                        leader: "顓賓",
                         staffs: ["蘇專委", "楊顓賓"],
                         detail: "入口主視覺背板與報到處搭設確認（廠商佈置確認）"
                     },
                     {
                         group: "學分組-外場",
-                        leader: "梁家瑋",
+                        location: "學分區",
+                        leader: "家瑋",
                         staffs: ["梁家瑋", "楊顓賓"],
-                        detail: "簽到區搭設確認、簽到退表及筆備用"
+                        detail: "簽到區搭設確認（廠商）、簽到退表及筆備用"
                     },
                     {
                         group: "攤位組-外場",
-                        leader: "郭泰裕",
+                        location: "攤位區",
+                        leader: "泰裕",
                         staffs: ["郭泰裕"],
                         detail: "攤位區搭設確認（廠商）"
                     },
                     {
                         group: "貴賓接待組",
-                        leader: "蘇專委",
+                        location: "會場外其他",
+                        leader: "顓賓",
                         staffs: ["林瑜婷"],
-                        detail: "成大停車位確認、會場外各區域指引牌佈置"
+                        detail: "議程表、各區域指引牌佈置；成大停車位確認"
                     }
                 ]
             },
@@ -307,39 +312,45 @@
                 tasks: [
                     {
                         group: "報到接待組-外場",
-                        leader: "楊顓賓",
+                        location: "報到處",
+                        leader: "顓賓",
                         staffs: ["楊顓賓", "李月玲", "張可冀", "陳佳玟", "陳祈君", "陳秀宜", "仇文玲", "黃昭瑢", "林紋年"],
-                        detail: "確認指引牌定位；報到攤位架設；牙醫/藥事/貴賓/中醫/資服/西醫報到處物資清點"
+                        detail: "確認指引牌定位；報到攤位架設；牙醫/藥事/貴賓/政府單位報到處確認、清點物資；中醫/資服業者/西醫報到處確認、清點物資"
                     },
                     {
                         group: "貴賓接待組",
-                        leader: "蘇專委",
+                        location: "貴賓室",
+                        leader: "顓賓",
                         staffs: ["張家綾"],
                         detail: "貴賓室佈置與環境確認"
                     },
                     {
                         group: "學分組-外場",
-                        leader: "梁家瑋",
+                        location: "學分區",
+                        leader: "家瑋",
                         staffs: ["梁家瑋", "陳瑩玲", "吳孜威", "廖子喬"],
                         detail: "學分簽到退紙筆確認"
                     },
                     {
                         group: "攤位組-外場",
-                        leader: "郭泰裕",
+                        location: "攤位區",
+                        leader: "泰裕",
                         staffs: ["曾奕舜", "鄭九禎", "魏昆茹", "郭泰裕"],
-                        detail: "醫管科攤位軟硬體設備確認、設攤廠商設備確認、集點活動說明與識別證貼紙發放"
+                        detail: "醫管科攤位軟硬體設備確認、確認設攤廠商設備情形、集點活動說明與發放識別證及集點貼紙"
                     },
                     {
                         group: "議事行政組-內場",
-                        leader: "黃麗如",
+                        location: "主會場",
+                        leader: "麗如",
                         staffs: ["黃麗如", "郭郁伶", "黃雅芬", "劉育菁", "楊玟蒨", "陳榮彬", "吳雪嬌", "許錦睿", "王品文", "張巧瑩", "陳美璉"],
-                        detail: "主會場現場場控、控台測試播放資料與音控設備測試、合照/致詞/頒感謝狀走位彩排"
+                        detail: "現場場控、控台測試播放資料與音控設備測試、合照/致詞/頒感謝狀走位彩排"
                     },
                     {
                         group: "攝影組",
-                        leader: "黃耀德",
+                        location: "主會場",
+                        leader: "麗如",
                         staffs: ["黃耀德", "陳琨勝", "楊宗哲", "曾祥彥"],
-                        detail: "配合主會場總彩排走位拍攝與攝影動線確認"
+                        detail: "配合主會場合照、致詞、頒感謝狀走位彩排"
                     }
                 ]
             },
@@ -348,31 +359,35 @@
                 day: "10/4",
                 time: "11:10 - 12:30",
                 mainProcess: "工作人員用餐與最後預備",
-                location: "報到處 / 展攤區",
+                location: "報到處",
                 tasks: [
                     {
                         group: "報到接待組-外場",
-                        leader: "楊顓賓",
+                        location: "報到處",
+                        leader: "顓賓",
                         staffs: ["李月玲"],
                         detail: "11:00 便當、餐盒送達簽收"
                     },
                     {
                         group: "議事行政組-內場",
-                        leader: "黃麗如",
+                        location: "報到處",
+                        leader: "顓賓",
                         staffs: ["張巧瑩", "陳美璉"],
                         detail: "工作人員便當發送"
                     },
                     {
                         group: "攝影組",
-                        leader: "黃耀德",
+                        location: "報到處",
+                        leader: "顓賓",
                         staffs: ["陳琨勝"],
                         detail: "設攤人員餐盒發送（與醫管科同仁）"
                     },
                     {
                         group: "總督導",
-                        leader: "韓佩軒",
+                        location: "報到處",
+                        leader: "顓賓",
                         staffs: ["全體工作人員"],
-                        detail: "12:15 環境檢視、物資確認，全體工作人員預備定位"
+                        detail: "12:15 環境檢視、物資確認，所有工作人員預備定位"
                     }
                 ]
             },
@@ -381,43 +396,49 @@
                 day: "10/4",
                 time: "12:30 - 13:30",
                 mainProcess: "觀摩會報到與貴賓入場",
-                location: "報到處 / 貴賓室 / 主會場",
+                location: "報到處 / 貴賓室 / 主會場 / 展攤區",
                 tasks: [
                     {
                         group: "報到接待組-外場",
-                        leader: "楊顓賓",
+                        location: "報到處",
+                        leader: "顓賓",
                         staffs: ["楊顓賓", "賴阿薪", "洪欀皊", "李月玲", "張家綾", "林紋年", "張可冀", "陳秀宜", "仇文玲", "黃昭瑢", "陳榮彬", "陳佳玟", "陳祈君"],
-                        detail: "各類別（牙醫/藥事/貴賓/政府/中醫/資服/西醫）報到服務；貴賓簽到並即時回報麗如科長與郁伶"
+                        detail: "牙醫/藥事/貴賓/政府單位/中醫/資服業者/西醫報到處服務；貴賓簽到、回報貴賓及講者報到狀況給麗如科長、郁伶"
                     },
                     {
                         group: "攝影組",
-                        leader: "黃耀德",
+                        location: "報到處 / 主會場",
+                        leader: "顓賓",
                         staffs: ["黃耀德", "陳琨勝", "楊宗哲", "曾祥彥"],
-                        detail: "幫拍長官、主視覺背板引導拍照、捕捉長官貴賓畫面"
+                        detail: "跟拍長官、主視覺背板引導拍照、長官貴賓拍照捕捉"
                     },
                     {
                         group: "學分組-外場",
-                        leader: "梁家瑋",
+                        location: "學分區",
+                        leader: "顓賓",
                         staffs: ["梁家瑋", "陳瑩玲", "吳孜威", "廖子喬"],
                         detail: "協助學分簽到"
                     },
                     {
                         group: "攤位組-外場",
-                        leader: "郭泰裕",
+                        location: "攤位區",
+                        leader: "顓賓",
                         staffs: ["曾奕舜", "鄭九禎", "魏昆茹", "郭泰裕"],
-                        detail: "醫管科攤位駐點服務，展攤即時問題排除"
+                        detail: "醫管科攤位駐點服務、展攤即時問題排除"
                     },
                     {
                         group: "貴賓接待組",
-                        leader: "蘇專委",
+                        location: "貴賓室",
+                        leader: "顓賓",
                         staffs: ["張家綾", "李月玲"],
-                        detail: "貴賓室接待服務及副署長致詞稿確認"
+                        detail: "貴賓室服務及副署長致詞稿確認"
                     },
                     {
                         group: "議事行政組-內場",
-                        leader: "黃麗如",
+                        location: "主會場",
+                        leader: "顓賓",
                         staffs: ["賴阿薪", "洪欀皊", "劉育菁", "楊玟蒨", "黃雅芬"],
-                        detail: "貴賓入場座位引導、音控及投影幕播放輕音樂"
+                        detail: "貴賓簽到後入場座位引導、音控及投影幕設備操作(輕音樂)"
                     }
                 ]
             },
@@ -430,9 +451,10 @@
                 tasks: [
                     {
                         group: "議事行政組-內場",
-                        leader: "黃麗如",
+                        location: "主會場",
+                        leader: "麗如",
                         staffs: ["郭郁伶", "林瑜婷", "陳美璉", "許錦睿", "吳雪嬌", "張巧瑩", "王品文"],
-                        detail: "司儀開場；台上/台下引導長官貴賓致詞、遞收麥克風、準備感謝狀"
+                        detail: "開場及引導議程；副署長與貴賓致詞台上/台下引導、遞收麥克風、準備感謝狀"
                     }
                 ]
             },
@@ -440,20 +462,22 @@
                 id: "s104_5",
                 day: "10/4",
                 time: "13:35 - 13:45",
-                mainProcess: "頒發感謝狀及合影（三階段唱名）",
+                mainProcess: "頒感謝狀及合影",
                 location: "主會場",
                 tasks: [
                     {
                         group: "議事行政組-內場",
-                        leader: "黃麗如",
+                        location: "主會場",
+                        leader: "麗如 / 耀德",
                         staffs: ["郭郁伶", "林瑜婷", "陳美璉", "許錦睿", "吳雪嬌", "黃雅芬", "王品文"],
-                        detail: "司儀唱名；台上台下引導合照人員、音控播放頒獎音樂、遞送感謝狀"
+                        detail: "司儀唱名、台上/台下上台引導、音控及投影幕設備操作(頒獎音樂)、遞感謝狀"
                     },
                     {
                         group: "攝影組",
-                        leader: "黃耀德",
+                        location: "主會場",
+                        leader: "耀德",
                         staffs: ["黃耀德", "陳琨勝", "楊宗哲", "曾祥彥"],
-                        detail: "台上頒獎及合影拍攝（重要片段錄影）"
+                        detail: "拍照與重要片段錄影"
                     }
                 ]
             },
@@ -466,15 +490,17 @@
                 tasks: [
                     {
                         group: "議事行政組-內場",
-                        leader: "黃麗如",
+                        location: "主會場",
+                        leader: "耀德",
                         staffs: ["郭郁伶", "吳雪嬌", "陳榮彬", "許錦睿", "賴阿薪", "林瑜婷", "洪欀皊", "劉育菁", "楊玟蒨", "張巧瑩", "陳美璉"],
-                        detail: "司儀 Cue 合照動作；遞收合影布幅與手拿牌；張貼下一階段講者海報"
+                        detail: "Cue合照動作、遞收合影布幅與手拿牌、貼講者海報"
                     },
                     {
                         group: "攝影組",
-                        leader: "黃耀德",
+                        location: "主會場",
+                        leader: "耀德",
                         staffs: ["黃耀德", "陳琨勝", "楊宗哲", "曾祥彥"],
-                        detail: "台下全體大合影拍攝"
+                        detail: "台下大合影拍攝"
                     }
                 ]
             },
@@ -482,18 +508,20 @@
                 id: "s104_7",
                 day: "10/4",
                 time: "13:50 - 14:00",
-                mainProcess: "專題報告：健保數位轉型政策（郭俊麟科長）",
+                mainProcess: "健保數位轉型政策（郭俊麟科長）",
                 location: "主會場 / 報到處",
                 tasks: [
                     {
                         group: "議事行政組-內場",
-                        leader: "黃麗如",
+                        location: "主會場",
+                        leader: "麗如",
                         staffs: ["郭郁伶", "林瑜婷", "許錦睿", "張巧瑩", "黃雅芬", "陳榮彬", "吳雪嬌"],
-                        detail: "講者介紹、左右側上台引導、提供簡報筆麥克風、簡報播放與計時舉牌"
+                        detail: "講者介紹；右側引導上台、提供簡報筆與麥克風，左側引導回座；播放簡報；計時舉牌"
                     },
                     {
                         group: "報到接待組-外場",
-                        leader: "楊顓賓",
+                        location: "報到處",
+                        leader: "麗如",
                         staffs: ["李月玲", "張家綾", "陳秀宜", "仇文玲", "黃昭瑢"],
                         detail: "貴賓禮品及餐盒裝袋確認"
                     }
@@ -503,26 +531,29 @@
                 id: "s104_8",
                 day: "10/4",
                 time: "14:00 - 14:20",
-                mainProcess: "專題報告：雲端暨資安趨勢",
+                mainProcess: "雲端暨資安趨勢",
                 location: "主會場 / 報到處",
                 tasks: [
                     {
                         group: "議事行政組-內場",
-                        leader: "黃麗如",
+                        location: "主會場",
+                        leader: "麗如",
                         staffs: ["郭郁伶", "王品文", "陳美璉", "林瑜婷", "許錦睿", "吳雪嬌", "黃雅芬", "劉育菁", "楊玟蒨"],
-                        detail: "講者介紹、換講者海報、引導上台、播放簡報、計時舉牌"
+                        detail: "講者介紹、貼講者海報、台上/台下引導、播放簡報、計時舉牌"
                     },
                     {
                         group: "報到接待組-外場",
-                        leader: "楊顓賓",
+                        location: "報到處",
+                        leader: "麗如",
                         staffs: ["陳秀宜", "仇文玲", "黃昭瑢", "林紋年", "張可冀", "陳佳玟", "陳祈君", "李月玲", "張家綾", "蔡一緯"],
-                        detail: "集點獎品確認、茶點區巡查確認、確認張副署長離席時間並打包茶點禮品"
+                        detail: "集點獎品確認、茶點區確認、確認張副署長離席時間及打包茶點禮品"
                     },
                     {
                         group: "攤位組-外場",
-                        leader: "郭泰裕",
+                        location: "報到處",
+                        leader: "麗如",
                         staffs: ["郭泰裕"],
-                        detail: "協助茶點區確認與巡視"
+                        detail: "茶點區確認"
                     }
                 ]
             },
@@ -530,26 +561,36 @@
                 id: "s104_9",
                 day: "10/4",
                 time: "14:20 - 14:30",
-                mainProcess: "專題報告：AI創新應用",
-                location: "主會場 / 報到處 / 展攤區",
+                mainProcess: "AI創新應用",
+                location: "主會場 / 報到處 / 攤位區 / 貴賓室",
                 tasks: [
                     {
                         group: "議事行政組-內場",
-                        leader: "黃麗如",
+                        location: "主會場",
+                        leader: "麗如",
                         staffs: ["郭郁伶", "王品文", "陳美璉", "林瑜婷", "許錦睿", "張巧瑩", "黃雅芬", "陳榮彬", "吳雪嬌"],
-                        detail: "講者介紹、更換海報、上台引導、播放簡報與計時舉牌"
+                        detail: "講者介紹、貼講者海報、左右引導、播放簡報、計時舉牌"
                     },
                     {
                         group: "報到接待組-外場",
-                        leader: "楊顓賓",
-                        staffs: ["陳秀宜", "仇文玲", "黃昭瑢", "林紋年", "張可冀", "陳佳玟", "陳祈君", "李月玲", "張家綾"],
-                        detail: "集點兌換服務準備、貴賓室收拾整理"
+                        location: "報到處",
+                        leader: "麗如",
+                        staffs: ["陳秀宜", "仇文玲", "黃昭瑢", "林紋年", "張可冀", "陳佳玟", "陳祈君"],
+                        detail: "集點服務準備"
                     },
                     {
                         group: "攤位組-外場",
-                        leader: "郭泰裕",
+                        location: "攤位區",
+                        leader: "麗如",
                         staffs: ["郭泰裕", "曾奕舜", "鄭九禎", "魏昆茹"],
-                        detail: "醫管科及設攤廠商攤位準備與狀況確認"
+                        detail: "醫管科及設攤廠商攤位確認"
+                    },
+                    {
+                        group: "貴賓接待組",
+                        location: "貴賓室",
+                        leader: "麗如",
+                        staffs: ["張家綾", "李月玲"],
+                        detail: "整理貴賓室"
                     }
                 ]
             },
@@ -557,38 +598,50 @@
                 id: "s104_10",
                 day: "10/4",
                 time: "14:30 - 15:00",
-                mainProcess: "茶敘及展攤交流（集點送好禮）",
-                location: "展攤區 / 報到處 / 主會場",
+                mainProcess: "茶敘及展攤交流",
+                location: "主會場 / 貴賓室 / 報到處 / 攤位區",
                 tasks: [
                     {
                         group: "議事行政組-內場",
-                        leader: "黃麗如",
+                        location: "主會場",
+                        leader: "顓賓 / 泰裕 / 瑜婷",
                         staffs: ["黃雅芬", "郭郁伶", "王品文", "陳美璉", "林瑜婷"],
-                        detail: "控台切換為展攤圖與集點規則；司儀說明集點規則；貼下半場海報；茶點補給"
+                        detail: "控台切換為展攤平面圖與集點規則、說明集點規則、貼講者海報、茶點區補給及環境巡查"
                     },
                     {
                         group: "司機",
-                        leader: "蔡一緯",
+                        location: "主會場",
+                        leader: "顓賓",
                         staffs: ["蔡一緯", "李月玲"],
-                        detail: "張副署長 14:40 離席歡送與接送"
+                        detail: "張副署長14:40離開接送服務"
+                    },
+                    {
+                        group: "貴賓接待組",
+                        location: "貴賓室",
+                        leader: "顓賓",
+                        staffs: ["張家綾"],
+                        detail: "貴賓室機動服務"
                     },
                     {
                         group: "報到接待組-外場",
-                        leader: "楊顓賓",
+                        location: "報到處",
+                        leader: "顓賓",
                         staffs: ["陳秀宜", "仇文玲", "黃昭瑢", "林紋年", "張可冀", "陳佳玟", "陳祈君", "全體外場人員"],
-                        detail: "集點獎品發放（核對後識別證打勾）；14:55 提醒與會人員進場"
+                        detail: "集點獎品發放(兌換完請工作人員識別證後打勾)；14:55提醒與會人員進場"
                     },
                     {
                         group: "攤位組-外場",
-                        leader: "郭泰裕",
+                        location: "攤位區",
+                        leader: "顓賓",
                         staffs: ["楊顓賓", "郭泰裕"],
                         detail: "攤位巡查及即時問題排除"
                     },
                     {
                         group: "攝影組",
-                        leader: "黃耀德",
+                        location: "攤位區",
+                        leader: "顓賓",
                         staffs: ["黃耀德", "陳琨勝", "楊宗哲", "曾祥彥"],
-                        detail: "展攤與茶敘區動態、平面花絮捕捉"
+                        detail: "動態、平面捕捉"
                     }
                 ]
             },
@@ -596,26 +649,29 @@
                 id: "s104_11",
                 day: "10/4",
                 time: "15:00 - 15:30",
-                mainProcess: "專題報告：雲端HIS系統分享",
+                mainProcess: "雲端HIS系統分享",
                 location: "主會場 / 學分區 / 報到處",
                 tasks: [
                     {
                         group: "議事行政組-內場",
-                        leader: "黃麗如",
+                        location: "主會場",
+                        leader: "麗如",
                         staffs: ["郭郁伶", "林瑜婷", "許錦睿", "張巧瑩", "黃雅芬", "劉育菁", "楊玟蒨"],
-                        detail: "講者介紹、引導上台、播放簡報、計時舉牌"
+                        detail: "講者介紹、引導上台/回座、播放簡報、計時舉牌"
                     },
                     {
                         group: "學分組-外場",
-                        leader: "梁家瑋",
+                        location: "學分區",
+                        leader: "麗如",
                         staffs: ["梁家瑋", "陳瑩玲", "吳孜威", "廖子喬"],
-                        detail: "最早 15:00 開放學分簽退（彈性辦理）"
+                        detail: "最早1500開放學分簽退(彈性)"
                     },
                     {
                         group: "報到接待組-外場",
-                        leader: "楊顓賓",
+                        location: "報到處",
+                        leader: "麗如",
                         staffs: ["陳秀宜", "仇文玲", "黃昭瑢", "林紋年", "張可冀", "陳佳玟", "陳祈君"],
-                        detail: "參加者禮品確認與擺放"
+                        detail: "參加者禮品確認擺放"
                     }
                 ]
             },
@@ -623,32 +679,43 @@
                 id: "s104_12",
                 day: "10/4",
                 time: "15:30 - 16:00",
-                mainProcess: "座談會：轉型上雲案例座談",
-                location: "主會場 / 報到區 / 學分區",
+                mainProcess: "轉型上雲案例座談",
+                location: "主會場 / 學分區 / 報到處 / 貴賓室",
                 tasks: [
                     {
                         group: "議事行政組-內場",
-                        leader: "黃麗如",
+                        location: "主會場",
+                        leader: "麗如",
                         staffs: ["郭郁伶", "楊顓賓", "陳美璉", "陳琨勝", "陳榮彬", "曾祥彥", "楊宗哲", "劉育菁", "楊玟蒨", "賴阿薪", "洪欀皊", "林瑜婷", "許錦睿", "張巧瑩", "吳雪嬌"],
-                        detail: "司儀串場；茶幾沙發擺設；桌牌水麥克風確認；多位與談人左右側引導上台；計時舉牌"
+                        detail: "轉場時司儀串場、貼講者海報、茶幾沙發擺設、桌牌水麥克風確認、左右側引導、計時舉牌"
                     },
                     {
                         group: "學分組-外場",
-                        leader: "梁家瑋",
+                        location: "學分區",
+                        leader: "麗如",
                         staffs: ["梁家瑋", "陳瑩玲", "吳孜威", "廖子喬"],
                         detail: "協助學分簽退"
                     },
                     {
                         group: "報到接待組-外場",
-                        leader: "楊顓賓",
+                        location: "報到處",
+                        leader: "麗如",
                         staffs: ["楊顓賓", "陳秀宜", "仇文玲", "黃昭瑢", "林紋年", "張可冀", "陳佳玟", "陳祈君"],
-                        detail: "參加者禮品擺放及發放準備"
+                        detail: "參加者禮品擺放及發放"
                     },
                     {
                         group: "攤位組-外場",
-                        leader: "郭泰裕",
+                        location: "報到處",
+                        leader: "麗如",
                         staffs: ["李月玲", "郭泰裕", "曾奕舜", "鄭九禎", "魏昆茹"],
-                        detail: "茶敘餐點打包整理"
+                        detail: "茶敘餐點打包"
+                    },
+                    {
+                        group: "貴賓接待組",
+                        location: "貴賓室",
+                        leader: "麗如",
+                        staffs: ["張家綾"],
+                        detail: "整理貴賓室"
                     }
                 ]
             },
@@ -657,25 +724,28 @@
                 day: "10/4",
                 time: "16:00 - ",
                 mainProcess: "賦歸與全體場復",
-                location: "全會場",
+                location: "主會場 / 報到處 / 學分區",
                 tasks: [
                     {
                         group: "總督導",
-                        leader: "韓佩軒",
+                        location: "主會場",
+                        leader: "韓組長",
                         staffs: ["郭郁伶", "韓佩軒", "場內全體工作人員"],
-                        detail: "宣告活動圓滿結束；引導聽眾至會場外以識別證兌換禮品；協助場地復原"
+                        detail: "宣告活動圓滿結束、引導至會場外以識別證兌換禮品、全體工作人員協助場復"
                     },
                     {
                         group: "報到接待組-外場",
-                        leader: "楊顓賓",
+                        location: "報到處",
+                        leader: "韓組長",
                         staffs: ["李月玲", "張家綾", "郭泰裕", "陳秀宜", "仇文玲", "黃昭瑢", "林紋年", "張可冀", "陳佳玟", "陳祈君"],
-                        detail: "貴賓禮品發放；參加者回收識別證並兌換活動禮品"
+                        detail: "貴賓禮品發放、參加者回收識別證兌換活動禮品"
                     },
                     {
                         group: "學分組-外場",
-                        leader: "梁家瑋",
+                        location: "學分區",
+                        leader: "韓組長",
                         staffs: ["梁家瑋", "陳瑩玲", "吳孜威", "廖子喬"],
-                        detail: "協助最終學分簽退作業"
+                        detail: "協助學分簽退"
                     }
                 ]
             }
@@ -843,7 +913,7 @@
                     </div>
                 `;
 
-                // 呈現當前使用者工作內容 (預設顯示)
+                // 呈現當前使用者工作內容 (預設顯示) - 標註具體工作地點
                 html += `<div class="space-y-2">`;
 
                 if (hasMyTask) {
@@ -852,7 +922,8 @@
                             <div class="bg-blue-50/80 rounded-xl p-2.5 border border-blue-200">
                                 <div class="flex items-center justify-between mb-1">
                                     <span class="text-xs font-bold text-blue-900 flex items-center gap-1">
-                                        <i class="fas fa-tasks text-blue-600"></i> ${task.group}
+                                        <i class="fas fa-tasks text-blue-600"></i> ${task.group} 
+                                        <span class="text-red-500 font-semibold text-[11px] ml-1">📍 ${task.location}</span>
                                     </span>
                                     <span class="text-[11px] text-gray-500">組長: ${task.leader}</span>
                                 </div>
@@ -864,7 +935,7 @@
                     html += `<div class="text-xs text-gray-400 italic py-1 pl-1">此時段您無特定指定分工</div>`;
                 }
 
-                // 展開其他組別按鈕與內容
+                // 展開其他組別按鈕與內容 - 亦標註具體工作地點
                 const otherTasks = item.tasks.filter(t => !myTasks.includes(t));
 
                 if (otherTasks.length > 0) {
@@ -878,8 +949,11 @@
                             const isMine = myTasks.includes(task);
                             html += `
                                 <div class="rounded-lg p-2 text-xs ${isMine ? 'bg-blue-50 border border-blue-200' : 'bg-gray-50 border border-gray-200'}">
-                                    <div class="font-bold ${isMine ? 'text-blue-800' : 'text-gray-700'} flex justify-between">
-                                        <span>${task.group} ${isMine ? '(您的組別)' : ''}</span>
+                                    <div class="font-bold ${isMine ? 'text-blue-800' : 'text-gray-700'} flex justify-between items-center">
+                                        <span class="flex items-center gap-1">
+                                            ${task.group} ${isMine ? '(您的組別)' : ''}
+                                            <span class="text-red-500 font-normal text-[11px] ml-1">📍 ${task.location}</span>
+                                        </span>
                                         <span class="text-[10px] text-gray-400 font-normal">組員: ${task.staffs.join('、')}</span>
                                     </div>
                                     <p class="text-gray-600 text-[11px] mt-1">${task.detail}</p>
