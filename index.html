@@ -49,13 +49,13 @@
             <!-- Top Banner Header -->
             <div class="mt-6 text-center bg-white/40 backdrop-blur-md p-4 rounded-2xl border border-white/60 shadow-sm">
                 <div class="inline-flex items-center gap-2 bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-bold mb-2 shadow-sm">
-                    <i class="fas fa-bullhorn text-yellow-300"></i> 南區業務組
+                    <i class="fas fa-bullhorn text-yellow-300"></i> 南區業務組 誠摯邀請
                 </div>
                 <h1 class="text-xl font-black leading-tight text-blue-950 drop-shadow-sm">
                     基層醫療院所資訊服務系統<br>
                     <span class="text-blue-700 text-2xl">數位轉型觀摩會</span>
                 </h1>
-                <p class="text-xs text-blue-900 mt-1 font-semibold">工作人員任務指引 APP</p>
+                <p class="text-xs text-blue-900 mt-1 font-semibold">工作人員個人任務與流程指引 APP</p>
             </div>
 
             <!-- Bottom Selection Form -->
@@ -104,10 +104,18 @@
                     <i class="fas fa-notes-medical text-yellow-300 text-lg"></i>
                     <span class="font-bold text-sm tracking-wide">觀摩會工作分工 APP</span>
                 </div>
-                <!-- 連結完整版 PDF (work.pdf) -->
-                <a href="work.pdf" target="_blank" class="bg-red-500 hover:bg-red-600 active:scale-95 text-white text-xs px-2.5 py-1 rounded-lg font-medium flex items-center gap-1 shadow-sm transition">
-                    <i class="fas fa-file-pdf"></i> 完整PDF
-                </a>
+                
+                <!-- 右上方按鈕區 (注意事項 + 完整PDF) -->
+                <div class="flex items-center gap-1.5">
+                    <!-- 注意事項按鈕 -->
+                    <button onclick="openNoticeModal()" class="bg-amber-500 hover:bg-amber-600 active:scale-95 text-white text-xs px-2 py-1 rounded-lg font-bold flex items-center gap-1 shadow-sm transition">
+                        <i class="fas fa-info-circle text-yellow-200"></i> 注意事項
+                    </button>
+                    <!-- 連結完整版 PDF (work.pdf) -->
+                    <a href="work.pdf" target="_blank" class="bg-red-500 hover:bg-red-600 active:scale-95 text-white text-xs px-2 py-1 rounded-lg font-bold flex items-center gap-1 shadow-sm transition">
+                        <i class="fas fa-file-pdf"></i> 完整PDF
+                    </a>
+                </div>
             </div>
 
             <!-- Fixed User Info Box -->
@@ -154,15 +162,13 @@
 
         <!-- ==================== 3. 切換工作人員彈視窗 (Modal) ==================== -->
         <div id="switch-modal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden flex items-center justify-center p-4">
-            <div class="bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl relative animate-fade-in">
-                <!-- 關閉按鈕 -->
+            <div class="bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl relative">
                 <button onclick="closeSwitchUserModal()" class="absolute top-4 right-4 w-8 h-8 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center text-gray-500 transition">
                     <i class="fas fa-times"></i>
                 </button>
 
                 <h3 class="text-lg font-bold text-gray-800 mb-5">切換工作人員</h3>
 
-                <!-- 選擇單位 -->
                 <div class="mb-4">
                     <label class="block text-xs font-bold text-gray-600 mb-1.5">單位</label>
                     <div class="relative">
@@ -173,7 +179,6 @@
                     </div>
                 </div>
 
-                <!-- 選擇人員 -->
                 <div class="mb-6">
                     <label class="block text-xs font-bold text-gray-600 mb-1.5">人員</label>
                     <div class="relative">
@@ -184,10 +189,91 @@
                     </div>
                 </div>
 
-                <!-- 切換人員按鈕 -->
                 <button onclick="submitSwitchUser()" class="w-full bg-[#0e9aa7] hover:bg-[#0b838f] active:scale-95 text-white font-bold py-3.5 rounded-2xl shadow-md transition-all text-sm tracking-wider">
                     切換人員
                 </button>
+            </div>
+        </div>
+
+        <!-- ==================== 4. 工作人員注意事項彈視窗 (Modal) ==================== -->
+        <div id="notice-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+            <div class="bg-white w-full max-w-sm rounded-3xl overflow-hidden shadow-2xl relative flex flex-col max-h-[85vh]">
+                
+                <!-- Modal Header -->
+                <div class="bg-gradient-to-r from-orange-500 to-amber-500 p-4 text-white flex justify-between items-center shrink-0">
+                    <div class="flex items-center gap-2 font-black text-base">
+                        <i class="fas fa-exclamation-triangle text-yellow-200"></i> 工作人員注意事項
+                    </div>
+                    <button onclick="closeNoticeModal()" class="text-white/80 hover:text-white text-xl font-bold">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+
+                <!-- Modal Body (Scrollable) -->
+                <div class="p-4 overflow-y-auto space-y-3 text-xs hide-scrollbar text-gray-700">
+                    
+                    <!-- 1. 服裝與集合 -->
+                    <div class="bg-amber-50/80 border border-amber-200 rounded-2xl p-3">
+                        <div class="font-bold text-amber-900 mb-1.5 flex items-center gap-1.5 text-xs">
+                            <span>👔</span> 服裝與集合
+                        </div>
+                        <div class="space-y-1 text-gray-700">
+                            <p><span class="font-bold text-gray-800">當日服裝：</span>請著白色/米色上衣、黑色褲/裙。</p>
+                            <p><span class="font-bold text-gray-800">集合時間：</span>10/4(日) 09:00 於成大醫學院成杏廳集合。</p>
+                        </div>
+                    </div>
+
+                    <!-- 2. 差假事宜 -->
+                    <div class="bg-blue-50/80 border border-blue-200 rounded-2xl p-3">
+                        <div class="font-bold text-blue-900 mb-1.5 flex items-center gap-1.5 text-xs">
+                            <span>⏰</span> 差假事宜
+                        </div>
+                        <div class="space-y-1 text-gray-700">
+                            <p><span class="font-bold text-gray-800">10/3(六) 13:00-17:00：</span>場佈人員自行點選署外加班 4 小時。</p>
+                            <p><span class="font-bold text-gray-800">10/4(日) 09:00-17:00：</span>工作人員自行點選署外加班 8 小時。</p>
+                        </div>
+                    </div>
+
+                    <!-- 3. 廳內規定 -->
+                    <div class="bg-rose-50/80 border border-rose-200 rounded-2xl p-3">
+                        <div class="font-bold text-rose-900 mb-1.5 flex items-center gap-1.5 text-xs">
+                            <span>🚫</span> 廳內規定
+                        </div>
+                        <p class="text-gray-700 leading-relaxed">
+                            成杏廳內<span class="font-bold text-red-600">禁止飲食</span>，佈置時<span class="font-bold text-red-600">禁止使用會殘膠</span>之黏貼工具。
+                        </p>
+                    </div>
+
+                    <!-- 4. 重要聯絡電話 -->
+                    <div class="bg-slate-50 border border-slate-200 rounded-2xl p-3">
+                        <div class="font-bold text-slate-800 mb-1.5 flex items-center gap-1.5 text-xs">
+                            <span>📞</span> 重要聯絡電話
+                        </div>
+                        <div class="space-y-1.5 text-gray-700">
+                            <p class="flex justify-between items-center">
+                                <span>成杏廳管理員 (蘇先生):</span>
+                                <a href="tel:0912356128" class="text-blue-600 font-bold underline">0912356128</a>
+                            </p>
+                            <p class="flex justify-between items-center">
+                                <span>設攤廠商 (陳先生):</span>
+                                <a href="tel:0917298152" class="text-blue-600 font-bold underline">0917298152</a>
+                            </p>
+                            <p class="flex justify-between items-center">
+                                <span>餐盒/茶敘 (鄭小姐):</span>
+                                <a href="tel:0935133986" class="text-blue-600 font-bold underline">0935133986</a>
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Modal Footer -->
+                <div class="p-3 bg-gray-50 border-t border-gray-100 shrink-0">
+                    <button onclick="closeNoticeModal()" class="w-full bg-slate-800 hover:bg-slate-900 active:scale-95 text-white font-bold py-2.5 rounded-xl shadow transition text-xs tracking-wider">
+                        了解並關閉
+                    </button>
+                </div>
+
             </div>
         </div>
 
@@ -197,9 +283,9 @@
     <script>
         // ==================== 全局資料數據庫 ====================
         
-        // 人員與單位分工資料 (42人完整名單)[cite: 1]
+        // 人員與單位分工資料 (42人完整名單)
         const staffData = [
-            // 企劃小組[cite: 1]
+            // 企劃小組
             { name: "韓佩軒", unit: "企劃小組", group: "總督導", leader: "韓佩軒組長、賴大年副組長" },
             { name: "賴大年", unit: "企劃小組", group: "總督導", leader: "韓佩軒組長、賴大年副組長" },
             { name: "蘇專委", unit: "企劃小組", group: "貴賓接待組", leader: "蘇專委" },
@@ -208,7 +294,7 @@
             { name: "林瑜婷", unit: "企劃小組", group: "議事行政組-內場", leader: "黃麗如科長" },
             { name: "李月玲", unit: "企劃小組", group: "報到接待組-外場", leader: "楊顓賓" },
             
-            // 醫務管理科[cite: 1]
+            // 醫務管理科
             { name: "郭俊麟", unit: "醫務管理科", group: "貴賓接待組", leader: "蘇專委" },
             { name: "陳琨勝", unit: "醫務管理科", group: "攝影組", leader: "黃耀德" },
             { name: "郭泰裕", unit: "醫務管理科", group: "攤位組-外場", leader: "郭泰裕" },
@@ -217,7 +303,7 @@
             { name: "曾奕舜", unit: "醫務管理科", group: "攤位組-外場", leader: "郭泰裕" },
             { name: "黃昭瑢", unit: "醫務管理科", group: "報到接待組-外場", leader: "楊顓賓" },
 
-            // 費用科[cite: 1]
+            // 費用科
             { name: "賴阿薪", unit: "費用科", group: "貴賓接待組", leader: "蘇專委" },
             { name: "郭郁伶", unit: "費用科", group: "議事行政組-內場", leader: "黃麗如科長" },
             { name: "洪欀皊", unit: "費用科", group: "貴賓接待組", leader: "蘇專委" },
@@ -225,7 +311,7 @@
             { name: "劉育菁", unit: "費用科", group: "議事行政組-內場", leader: "黃麗如科長" },
             { name: "楊玟蒨", unit: "費用科", group: "議事行政組-內場", leader: "黃麗如科長" },
 
-            // 綜合行政科[cite: 1]
+            // 綜合行政科
             { name: "張巧瑩", unit: "綜合行政科", group: "議事行政組-內場", leader: "黃麗如科長" },
             { name: "陳美璉", unit: "綜合行政科", group: "議事行政組-內場", leader: "黃麗如科長" },
             { name: "蔡一緯", unit: "綜合行政科", group: "司機", leader: "蔡一緯" },
@@ -234,7 +320,7 @@
             { name: "黃耀德", unit: "綜合行政科", group: "攝影組", leader: "黃耀德" },
             { name: "鄭九禎", unit: "綜合行政科", group: "攤位組-外場", leader: "郭泰裕" },
 
-            // 高屏業務組[cite: 1]
+            // 高屏業務組
             { name: "張可冀", unit: "高屏業務組", group: "報到接待組-外場", leader: "楊顓賓" },
             { name: "陳佳玟", unit: "高屏業務組", group: "報到接待組-外場", leader: "楊顓賓" },
             { name: "陳祈君", unit: "高屏業務組", group: "報到接待組-外場", leader: "楊顓賓" },
@@ -244,7 +330,7 @@
             { name: "吳孜威", unit: "高屏業務組", group: "學分組-外場", leader: "梁家瑋" },
             { name: "廖子喬", unit: "高屏業務組", group: "學分組-外場", leader: "梁家瑋" },
 
-            // 承保顧服[cite: 1]
+            // 承保顧服
             { name: "許錦睿", unit: "承保顧服", group: "議事行政組-內場", leader: "黃麗如科長" },
             { name: "王品文", unit: "承保顧服", group: "議事行政組-內場", leader: "黃麗如科長" },
             { name: "吳雪嬌", unit: "承保顧服", group: "議事行政組-內場", leader: "黃麗如科長" },
@@ -254,7 +340,7 @@
             { name: "魏昆茹", unit: "承保顧服", group: "攤位組-外場", leader: "郭泰裕" }
         ];
 
-        // 活動細流時程資料表 (每個任務均包含明確獨立地點 location)[cite: 1]
+        // 活動細流時程資料表
         const scheduleData = [
             // ---------- 10/3 (六) ----------
             {
@@ -843,7 +929,16 @@
             closeSwitchUserModal();
         }
 
-        // 5. 更新頂部固定欄資訊
+        // 5. 注意事項 Modal 操作
+        function openNoticeModal() {
+            document.getElementById('notice-modal').classList.remove('hidden');
+        }
+
+        function closeNoticeModal() {
+            document.getElementById('notice-modal').classList.add('hidden');
+        }
+
+        // 6. 更新頂部固定欄資訊
         function updateHeaderInfo() {
             if (!currentUser) return;
             document.getElementById('info-name').textContent = currentUser.name;
@@ -853,7 +948,7 @@
             document.getElementById('user-avatar').textContent = currentUser.name.substring(0, 1);
         }
 
-        // 6. 切換日期 (10/3 vs 10/4)
+        // 7. 切換日期 (10/3 vs 10/4)
         function switchDay(day) {
             currentDay = day;
             const tabDay1 = document.getElementById('tab-day1');
@@ -870,13 +965,13 @@
             renderTimeline();
         }
 
-        // 7. 切換[展開/折疊]其他組別任務
+        // 8. 切換[展開/折疊]其他組別任務
         function toggleExpand(itemId) {
             expandedItems[itemId] = !expandedItems[itemId];
             renderTimeline();
         }
 
-        // 8. 核心渲染時間軸
+        // 9. 核心渲染時間軸
         function renderTimeline() {
             const container = document.getElementById('timeline-container');
             container.innerHTML = '';
