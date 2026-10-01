@@ -22,11 +22,12 @@
             background-color: #f0f4f8;
             -webkit-tap-highlight-color: transparent;
         }
-        .bg-banner-gradient {
-            background: linear-gradient(135deg, #0052d4 0%, #4364f7 50%, #6fb1fc 100%);
-        }
-        .bg-card-gradient {
-            background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+        /* 封面頁背景改為上傳的第二張圖片 */
+        .bg-cover-image {
+            background-image: url('Cloud Healthcare Campus Landscape.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
         }
         .hide-scrollbar::-webkit-scrollbar {
             display: none;
@@ -43,32 +44,22 @@
     <div id="app" class="w-full max-w-md h-screen sm:h-[844px] bg-white sm:rounded-3xl shadow-2xl flex flex-col overflow-hidden relative border-gray-200">
 
         <!-- ==================== 1. 封面頁 (Cover Screen) ==================== -->
-        <div id="cover-screen" class="absolute inset-0 z-50 flex flex-col justify-between p-6 bg-banner-gradient text-white overflow-y-auto">
+        <div id="cover-screen" class="absolute inset-0 z-40 flex flex-col justify-between p-6 bg-cover-image text-gray-800 overflow-y-auto">
             
             <!-- Top Banner Header -->
-            <div class="mt-6 text-center">
-                <div class="inline-flex items-center gap-2 bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-xs font-medium mb-3">
-                    <i class="fas font-bold fa-bullhorn text-yellow-300"></i> 南區業務組
+            <div class="mt-6 text-center bg-white/40 backdrop-blur-md p-4 rounded-2xl border border-white/60 shadow-sm">
+                <div class="inline-flex items-center gap-2 bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-bold mb-2 shadow-sm">
+                    <i class="fas fa-bullhorn text-yellow-300"></i> 南區業務組 誠摯邀請
                 </div>
-                <h1 class="text-2xl font-black leading-tight tracking-wide drop-shadow-md">
+                <h1 class="text-xl font-black leading-tight text-blue-950 drop-shadow-sm">
                     基層醫療院所資訊服務系統<br>
-                    <span class="text-yellow-300 text-3xl">數位轉型觀摩會</span>
+                    <span class="text-blue-700 text-2xl">數位轉型觀摩會</span>
                 </h1>
-                <p class="text-xs text-blue-100 mt-2 font-light">工作人員任務指引 APP</p>
-            </div>
-
-            <!-- Decorative Center Graphic -->
-            <div class="my-auto py-4 flex justify-center">
-                <div class="w-40 h-40 bg-white/10 rounded-full flex items-center justify-center border border-white/20 shadow-inner relative">
-                    <i class="fas fa-hospital-user text-6xl text-white opacity-90"></i>
-                    <div class="absolute -bottom-2 bg-white text-blue-700 px-3 py-1 rounded-full text-xs font-bold shadow-md">
-                        10/3 - 10/4 成杏廳
-                    </div>
-                </div>
+                <p class="text-xs text-blue-900 mt-1 font-semibold">工作人員個人任務與流程指引 APP</p>
             </div>
 
             <!-- Bottom Selection Form -->
-            <div class="bg-white/95 backdrop-blur-md rounded-2xl p-5 text-gray-800 shadow-xl border border-white">
+            <div class="bg-white/95 backdrop-blur-md rounded-2xl p-5 text-gray-800 shadow-2xl border border-white mb-2">
                 <h2 class="text-center font-bold text-lg mb-4 text-blue-900 border-b pb-2 border-gray-100">
                     <i class="fas fa-user-check text-blue-600 mr-1"></i> 請選擇您的身份
                 </h2>
@@ -77,7 +68,7 @@
                 <div class="mb-4">
                     <label class="block text-xs font-semibold text-gray-600 mb-1">1. 選擇單位</label>
                     <div class="relative">
-                        <select id="unit-select" onchange="onUnitChange()" class="w-full bg-gray-50 border border-gray-300 rounded-xl px-3 py-2.5 text-sm font-medium focus:ring-2 focus:ring-blue-500 focus:outline-none appearance-none pr-8">
+                        <select id="unit-select" onchange="onUnitChange('unit-select', 'person-select')" class="w-full bg-gray-50 border border-gray-300 rounded-xl px-3 py-2.5 text-sm font-medium focus:ring-2 focus:ring-blue-500 focus:outline-none appearance-none pr-8">
                             <option value="">-- 請選擇單位 --</option>
                         </select>
                         <i class="fas fa-chevron-down absolute right-3 top-3.5 text-gray-400 text-xs pointer-events-none"></i>
@@ -101,7 +92,7 @@
                 </button>
             </div>
             
-            <p class="text-center text-[10px] text-blue-100 mt-4 opacity-80">中央健康保險署南區業務組 版權所有</p>
+            <p class="text-center text-[10px] text-blue-950 font-bold opacity-80 drop-shadow-sm">中央健康保險署南區業務組 版權所有</p>
         </div>
 
         <!-- ==================== 2. 主畫面 (Main App Screen) ==================== -->
@@ -128,8 +119,9 @@
                     <div>
                         <div class="flex items-center gap-2">
                             <span id="info-name" class="font-bold text-base tracking-wide">請選擇人員</span>
-                            <button onclick="switchUser()" class="text-[10px] bg-blue-600 hover:bg-blue-500 px-1.5 py-0.5 rounded border border-blue-400 text-blue-100 flex items-center gap-1">
-                                <i class="fas fa-sync-alt"></i> 切換
+                            <!-- 點擊跳出 Modal 彈窗直接切換 -->
+                            <button onclick="openSwitchUserModal()" class="text-[10px] bg-blue-600 hover:bg-blue-500 px-1.5 py-0.5 rounded border border-blue-400 text-blue-100 flex items-center gap-1">
+                                切換 <i class="fas fa-sync-alt"></i>
                             </button>
                         </div>
                         <div class="text-xs text-blue-200 mt-0.5 flex items-center gap-2">
@@ -159,6 +151,45 @@
         <main class="flex-1 overflow-y-auto p-3 space-y-3 bg-slate-100 hide-scrollbar" id="timeline-container">
             <!-- Schedule Cards dynamically rendered here -->
         </main>
+
+        <!-- ==================== 3. 切換工作人員彈視窗 (Modal) ==================== -->
+        <div id="switch-modal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden flex items-center justify-center p-4">
+            <div class="bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl relative animate-fade-in">
+                <!-- 關閉按鈕 -->
+                <button onclick="closeSwitchUserModal()" class="absolute top-4 right-4 w-8 h-8 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center text-gray-500 transition">
+                    <i class="fas fa-times"></i>
+                </button>
+
+                <h3 class="text-lg font-bold text-gray-800 mb-5">切換工作人員</h3>
+
+                <!-- 選擇單位 -->
+                <div class="mb-4">
+                    <label class="block text-xs font-bold text-gray-600 mb-1.5">單位</label>
+                    <div class="relative">
+                        <select id="modal-unit-select" onchange="onUnitChange('modal-unit-select', 'modal-person-select')" class="w-full bg-white border border-gray-200 rounded-2xl px-4 py-3 text-sm font-medium text-gray-700 focus:ring-2 focus:ring-cyan-500 focus:outline-none appearance-none pr-10 shadow-sm">
+                            <option value="">-- 請選擇單位 --</option>
+                        </select>
+                        <i class="fas fa-chevron-down absolute right-4 top-4 text-gray-400 text-xs pointer-events-none"></i>
+                    </div>
+                </div>
+
+                <!-- 選擇人員 -->
+                <div class="mb-6">
+                    <label class="block text-xs font-bold text-gray-600 mb-1.5">人員</label>
+                    <div class="relative">
+                        <select id="modal-person-select" disabled class="w-full bg-white border border-gray-200 rounded-2xl px-4 py-3 text-sm font-medium text-gray-700 focus:ring-2 focus:ring-cyan-500 focus:outline-none appearance-none pr-10 shadow-sm disabled:bg-gray-50 disabled:text-gray-400">
+                            <option value="">-- 請先選擇單位 --</option>
+                        </select>
+                        <i class="fas fa-chevron-down absolute right-4 top-4 text-gray-400 text-xs pointer-events-none"></i>
+                    </div>
+                </div>
+
+                <!-- 切換人員按鈕 -->
+                <button onclick="submitSwitchUser()" class="w-full bg-[#0e9aa7] hover:bg-[#0b838f] active:scale-95 text-white font-bold py-3.5 rounded-2xl shadow-md transition-all text-sm tracking-wider">
+                    切換人員
+                </button>
+            </div>
+        </div>
 
     </div>
 
@@ -362,7 +393,7 @@
                         group: "攝影組",
                         leader: "黃耀德",
                         staffs: ["黃耀德", "陳琨勝", "楊宗哲", "曾祥彥"],
-                        detail: "全程跟拍長官、主視覺背板引導拍照、捕捉長官貴賓畫面"
+                        detail: "幫拍長官、主視覺背板引導拍照、捕捉長官貴賓畫面"
                     },
                     {
                         group: "學分組-外場",
@@ -394,7 +425,7 @@
                 id: "s104_4",
                 day: "10/4",
                 time: "13:30 - 13:35",
-                mainProcess: "開幕及貴賓致詞",
+                mainProcess: "開場及貴賓致詞",
                 location: "主會場",
                 tasks: [
                     {
@@ -657,12 +688,13 @@
 
         // 初始化
         window.onload = function() {
-            initUnitDropdown();
+            initUnitDropdown('unit-select');
+            initUnitDropdown('modal-unit-select');
         };
 
         // 1. 初始化單位選單
-        function initUnitDropdown() {
-            const unitSelect = document.getElementById('unit-select');
+        function initUnitDropdown(elementId) {
+            const unitSelect = document.getElementById(elementId);
             const units = [...new Set(staffData.map(item => item.unit))];
             
             units.forEach(unit => {
@@ -674,9 +706,9 @@
         }
 
         // 2. 當選擇單位時，動態載入該單位人員
-        function onUnitChange() {
-            const unitSelect = document.getElementById('unit-select');
-            const personSelect = document.getElementById('person-select');
+        function onUnitChange(unitElementId, personElementId) {
+            const unitSelect = document.getElementById(unitElementId);
+            const personSelect = document.getElementById(personElementId);
             const selectedUnit = unitSelect.value;
 
             personSelect.innerHTML = '<option value="">-- 請選擇人員 --</option>';
@@ -697,7 +729,7 @@
             personSelect.disabled = false;
         }
 
-        // 3. 點擊「進入」個人工作台
+        // 3. 首頁點擊「進入」個人工作台
         function enterMainApp() {
             const personSelect = document.getElementById('person-select');
             const selectedName = personSelect.value;
@@ -717,9 +749,28 @@
             renderTimeline();
         }
 
-        // 4. 切換人員 (回到選擇頁)
-        function switchUser() {
-            document.getElementById('cover-screen').classList.remove('hidden');
+        // 4. Modal 切換彈視窗操作
+        function openSwitchUserModal() {
+            document.getElementById('switch-modal').classList.remove('hidden');
+        }
+
+        function closeSwitchUserModal() {
+            document.getElementById('switch-modal').classList.add('hidden');
+        }
+
+        function submitSwitchUser() {
+            const personSelect = document.getElementById('modal-person-select');
+            const selectedName = personSelect.value;
+
+            if (!selectedName) {
+                alert('請先選擇單位與人員！');
+                return;
+            }
+
+            currentUser = staffData.find(s => s.name === selectedName);
+            updateHeaderInfo();
+            renderTimeline();
+            closeSwitchUserModal();
         }
 
         // 5. 更新頂部固定欄資訊
