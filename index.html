@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>基層醫療院所資訊服務系統 數位轉型觀摩會 工作APP</title>
+
+    <!-- 主畫面 Icon 設定 (HIS.png) -->
+    <link rel="apple-touch-icon" href="HIS.png">
+    <link rel="icon" type="image/png" href="HIS.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="觀摩會工作APP">
+
+    <!-- Tailwind CSS & FontAwesome -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+            background-color: #f0f4f8;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .bg-banner-gradient {
+            background: linear-gradient(135deg, #0052d4 0%, #4364f7 50%, #6fb1fc 100%);
+        }
+        .bg-card-gradient {
+            background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="flex justify-center items-center min-h-screen sm:py-4">
+
+    <!-- App Container -->
+    <div id="app" class="w-full max-w-md h-screen sm:h-[844px] bg-white sm:rounded-3xl shadow-2xl flex flex-col overflow-hidden relative border-gray-200">
+
+        <!-- ==================== 1. 封面頁 (Cover Screen) ==================== -->
+        <div id="cover-screen" class="absolute inset-0 z-50 flex flex-col justify-between p-6 bg-banner-gradient text-white overflow-y-auto">
+            
+            <!-- Top Banner Header -->
+            <div class="mt-6 text-center">
+                <div class="inline-flex items-center gap-2 bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-xs font-medium mb-3">
+                    <i class="fas font-bold fa-bullhorn text-yellow-300"></i> 南區業務組 誠摯邀請
+                </div>
+                <h1 class="text-2xl font-black leading-tight tracking-wide drop-shadow-md">
+                    基層醫療院所資訊服務系統<br>
+                    <span class="text-yellow-300 text-3xl">數位轉型觀摩會</span>
+                </h1>
+                <p class="text-xs text-blue-100 mt-2 font-light">工作人員個人任務與流程指引 APP</p>
+            </div>
+
+            <!-- Decorative Center Graphic -->
+            <div class="my-auto py-4 flex justify-center">
+                <div class="w-40 h-40 bg-white/10 rounded-full flex items-center justify-center border border-white/20 shadow-inner relative">
+                    <i class="fas fa-hospital-user text-6xl text-white opacity-90"></i>
+                    <div class="absolute -bottom-2 bg-white text-blue-700 px-3 py-1 rounded-full text-xs font-bold shadow-md">
+                        10/3 - 10/4 成杏廳
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Selection Form -->
+            <div class="bg-white/95 backdrop-blur-md rounded-2xl p-5 text-gray-800 shadow-xl border border-white">
+                <h2 class="text-center font-bold text-lg mb-4 text-blue-900 border-b pb-2 border-gray-100">
+                    <i class="fas fa-user-check text-blue-600 mr-1"></i> 請選擇您的身份
+                </h2>
+
+                <!-- 選擇單位 -->
+                <div class="mb-4">
+                    <label class="block text-xs font-semibold text-gray-600 mb-1">1. 選擇單位</label>
+                    <div class="relative">
+                        <select id="unit-select" onchange="onUnitChange()" class="w-full bg-gray-50 border border-gray-300 rounded-xl px-3 py-2.5 text-sm font-medium focus:ring-2 focus:ring-blue-500 focus:outline-none appearance-none pr-8">
+                            <option value="">-- 請選擇單位 --</option>
+                        </select>
+                        <i class="fas fa-chevron-down absolute right-3 top-3.5 text-gray-400 text-xs pointer-events-none"></i>
+                    </div>
+                </div>
+
+                <!-- 選擇人員 -->
+                <div class="mb-6">
+                    <label class="block text-xs font-semibold text-gray-600 mb-1">2. 選擇人員姓名</label>
+                    <div class="relative">
+                        <select id="person-select" disabled class="w-full bg-gray-50 border border-gray-300 rounded-xl px-3 py-2.5 text-sm font-medium focus:ring-2 focus:ring-blue-500 focus:outline-none appearance-none pr-8 disabled:bg-gray-100 disabled:text-gray-400">
+                            <option value="">-- 請先選擇單位 --</option>
+                        </select>
+                        <i class="fas fa-chevron-down absolute right-3 top-3.5 text-gray-400 text-xs pointer-events-none"></i>
+                    </div>
+                </div>
+
+                <!-- 進入按鈕 -->
+                <button onclick="enterMainApp()" class="w-full bg-blue-600 hover:bg-blue-700 active:scale-95 text-white font-bold py-3 rounded-xl shadow-lg transition-all duration-200 flex items-center justify-center gap-2">
+                    進入個人工作台 <i class="fas fa-arrow-right text-xs"></i>
+                </button>
+            </div>
+            
+            <p class="text-center text-[10px] text-blue-100 mt-4 opacity-80">中央健康保險署南區業務組 版權所有</p>
+        </div>
+
+        <!-- ==================== 2. 主畫面 (Main App Screen) ==================== -->
+        <!-- Fixed Header Bar -->
+        <header class="bg-blue-700 text-white shadow-md z-30 shrink-0">
+            <!-- App Title Bar -->
+            <div class="px-4 py-2.5 flex justify-between items-center border-b border-blue-600/50">
+                <div class="flex items-center gap-2">
+                    <i class="fas fa-notes-medical text-yellow-300 text-lg"></i>
+                    <span class="font-bold text-sm tracking-wide">觀摩會工作分工 APP</span>
+                </div>
+                <!-- 連結完整版 PDF (work.pdf) -->
+                <a href="work.pdf" target="_blank" class="bg-red-500 hover:bg-red-600 active:scale-95 text-white text-xs px-2.5 py-1 rounded-lg font-medium flex items-center gap-1 shadow-sm transition">
+                    <i class="fas fa-file-pdf"></i> 完整PDF
+                </a>
+            </div>
+
+            <!-- Fixed User Info Box -->
+            <div class="px-4 py-3 bg-blue-800 flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-blue-100 text-blue-800 font-black text-base flex items-center justify-center shadow-inner" id="user-avatar">
+                        --
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span id="info-name" class="font-bold text-base tracking-wide">請選擇人員</span>
+                            <button onclick="switchUser()" class="text-[10px] bg-blue-600 hover:bg-blue-500 px-1.5 py-0.5 rounded border border-blue-400 text-blue-100 flex items-center gap-1">
+                                <i class="fas fa-sync-alt"></i> 切換
+                            </button>
+                        </div>
+                        <div class="text-xs text-blue-200 mt-0.5 flex items-center gap-2">
+                            <span id="info-unit">--</span>
+                            <span>|</span>
+                            <span id="info-group" class="text-yellow-300 font-medium">--</span>
+                        </div>
+                        <div class="text-[11px] text-blue-300 mt-0.5">
+                            <i class="fas fa-user-shield text-yellow-400 mr-1"></i>組長：<span id="info-leader" class="text-white font-medium">--</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Switcher (10/3 & 10/4) -->
+            <div class="flex bg-blue-900/50 text-xs font-semibold text-center border-t border-blue-600/30">
+                <button id="tab-day1" onclick="switchDay('10/3')" class="flex-1 py-2.5 text-yellow-300 border-b-2 border-yellow-300 bg-blue-800/80 transition-all">
+                    10/3 (六) 場佈彩排
+                </button>
+                <button id="tab-day2" onclick="switchDay('10/4')" class="flex-1 py-2.5 text-blue-200 hover:text-white border-b-2 border-transparent transition-all">
+                    10/4 (日) 活動當日
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content Area (Scrollable Timeline) -->
+        <main class="flex-1 overflow-y-auto p-3 space-y-3 bg-slate-100 hide-scrollbar" id="timeline-container">
+            <!-- Schedule Cards dynamically rendered here -->
+        </main>
+
+    </div>
+
+    <!-- JavaScript Data & Logic -->
+    <script>
+        // ==================== 全局資料數據庫 ====================
+        
+        // 人員與單位分工資料 (42人完整名單)
+        const staffData = [
+            // 企劃小組
+            { name: "韓佩軒", unit: "企劃小組", group: "總督導", leader: "韓佩軒組長、賴大年副組長" },
+            { name: "賴大年", unit: "企劃小組", group: "總督導", leader: "韓佩軒組長、賴大年副組長" },
+            { name: "蘇專委", unit: "企劃小組", group: "貴賓接待組", leader: "蘇專委" },
+            { name: "黃麗如", unit: "企劃小組", group: "議事行政組-內場", leader: "黃麗如科長" },
+            { name: "楊顓賓", unit: "企劃小組", group: "報到接待組-外場", leader: "楊顓賓" },
+            { name: "林瑜婷", unit: "企劃小組", group: "議事行政組-內場", leader: "黃麗如科長" },
+            { name: "李月玲", unit: "企劃小組", group: "報到接待組-外場", leader: "楊顓賓" },
+            
+            // 醫務管理科
+            { name: "郭俊麟", unit: "醫務管理科", group: "貴賓接待組", leader: "蘇專委" },
+            { name: "陳琨勝", unit: "醫務管理科", group: "攝影組", leader: "黃耀德" },
+            { name: "郭泰裕", unit: "醫務管理科", group: "攤位組-外場", leader: "郭泰裕" },
+            { name: "陳秀宜", unit: "醫務管理科", group: "報到接待組-外場", leader: "楊顓賓" },
+            { name: "仇文玲", unit: "醫務管理科", group: "報到接待組-外場", leader: "楊顓賓" },
+            { name: "曾奕舜", unit: "醫務管理科", group: "攤位組-外場", leader: "郭泰裕" },
+            { name: "黃昭瑢", unit: "醫務管理科", group: "報到接待組-外場", leader: "楊顓賓" },
+
+            // 費用科
+            { name: "賴阿薪", unit: "費用科", group: "貴賓接待組", leader: "蘇專委" },
+            { name: "郭郁伶", unit: "費用科", group: "議事行政組-內場", leader: "黃麗如科長" },
+            { name: "洪欀皊", unit: "費用科", group: "貴賓接待組", leader: "蘇專委" },
+            { name: "楊宗哲", unit: "費用科", group: "攝影組", leader: "黃耀德" },
+            { name: "劉育菁", unit: "費用科", group: "議事行政組-內場", leader: "黃麗如科長" },
+            { name: "楊玟蒨", unit: "費用科", group: "議事行政組-內場", leader: "黃麗如科長" },
+
+            // 綜合行政科
+            { name: "張巧瑩", unit: "綜合行政科", group: "議事行政組-內場", leader: "黃麗如科長" },
+            { name: "陳美璉", unit: "綜合行政科", group: "議事行政組-內場", leader: "黃麗如科長" },
+            { name: "蔡一緯", unit: "綜合行政科", group: "司機", leader: "蔡一緯" },
+            { name: "黃榮崇", unit: "綜合行政科", group: "司機", leader: "蔡一緯" },
+            { name: "陳榮彬", unit: "綜合行政科", group: "議事行政組-內場", leader: "黃麗如科長" },
+            { name: "黃耀德", unit: "綜合行政科", group: "攝影組", leader: "黃耀德" },
+            { name: "鄭九禎", unit: "綜合行政科", group: "攤位組-外場", leader: "郭泰裕" },
+
+            // 高屏業務組
+            { name: "張可冀", unit: "高屏業務組", group: "報到接待組-外場", leader: "楊顓賓" },
+            { name: "陳佳玟", unit: "高屏業務組", group: "報到接待組-外場", leader: "楊顓賓" },
+            { name: "陳祈君", unit: "高屏業務組", group: "報到接待組-外場", leader: "楊顓賓" },
+            { name: "梁家瑋", unit: "高屏業務組", group: "學分組-外場", leader: "梁家瑋" },
+            { name: "陳瑩玲", unit: "高屏業務組", group: "學分組-外場", leader: "梁家瑋" },
+            { name: "林紋年", unit: "高屏業務組", group: "報到接待組-外場", leader: "楊顓賓" },
+            { name: "吳孜威", unit: "高屏業務組", group: "學分組-外場", leader: "梁家瑋" },
+            { name: "廖子喬", unit: "高屏業務組", group: "學分組-外場", leader: "梁家瑋" },
+
+            // 承保顧服
+            { name: "許錦睿", unit: "承保顧服", group: "議事行政組-內場", leader: "黃麗如科長" },
+            { name: "王品文", unit: "承保顧服", group: "議事行政組-內場", leader: "黃麗如科長" },
+            { name: "吳雪嬌", unit: "承保顧服", group: "議事行政組-內場", leader: "黃麗如科長" },
+            { name: "黃雅芬", unit: "承保顧服", group: "議事行政組-內場", leader: "黃麗如科長" },
+            { name: "曾祥彥", unit: "承保顧服", group: "攝影組", leader: "黃耀德" },
+            { name: "張家綾", unit: "承保顧服", group: "貴賓接待組", leader: "蘇專委" },
+            { name: "魏昆茹", unit: "承保顧服", group: "攤位組-外場", leader: "郭泰裕" }
+        ];
+
+        // 活動細流時程資料表
+        const scheduleData = [
+            // ---------- 10/3 (六) ----------
+            {
+                id: "s103_1",
+                day: "10/3",
+                time: "13:00 - 17:00",
+                mainProcess: "進場定位與設備佈置彩排",
+                location: "成大醫學院成杏廳",
+                tasks: [
+                    {
+                        group: "議事行政組-內場",
+                        leader: "黃麗如",
+                        staffs: ["黃麗如", "林瑜婷", "郭郁伶", "黃雅芬"],
+                        detail: "舞台橫幅、布幅、司儀台佈置確認；座位安排、感謝狀、手拿牌備妥；主會場控台/簡報設備測試；司儀彩排"
+                    },
+                    {
+                        group: "報到接待組-外場",
+                        leader: "楊顓賓",
+                        staffs: ["蘇專委", "楊顓賓"],
+                        detail: "入口主視覺背板與報到處搭設確認（廠商佈置確認）"
+                    },
+                    {
+                        group: "學分組-外場",
+                        leader: "梁家瑋",
+                        staffs: ["梁家瑋", "楊顓賓"],
+                        detail: "簽到區搭設確認、簽到退表及筆備用"
+                    },
+                    {
+                        group: "攤位組-外場",
+                        leader: "郭泰裕",
+                        staffs: ["郭泰裕"],
+                        detail: "攤位區搭設確認（廠商）"
+                    },
+                    {
+                        group: "貴賓接待組",
+                        leader: "蘇專委",
+                        staffs: ["林瑜婷"],
+                        detail: "成大停車位確認、會場外各區域指引牌佈置"
+                    }
+                ]
+            },
+
+            // ---------- 10/4 (日) ----------
+            {
+                id: "s104_1",
+                day: "10/4",
+                time: "09:00 - 11:10",
+                mainProcess: "集合、確認佈置物與總彩排",
+                location: "主會場 / 外場 / 報到處 / 貴賓室",
+                tasks: [
+                    {
+                        group: "報到接待組-外場",
+                        leader: "楊顓賓",
+                        staffs: ["楊顓賓", "李月玲", "張可冀", "陳佳玟", "陳祈君", "陳秀宜", "仇文玲", "黃昭瑢", "林紋年"],
+                        detail: "確認指引牌定位；報到攤位架設；牙醫/藥事/貴賓/中醫/資服/西醫報到處物資清點"
+                    },
+                    {
+                        group: "貴賓接待組",
+                        leader: "蘇專委",
+                        staffs: ["張家綾"],
+                        detail: "貴賓室佈置與環境確認"
+                    },
+                    {
+                        group: "學分組-外場",
+                        leader: "梁家瑋",
+                        staffs: ["梁家瑋", "陳瑩玲", "吳孜威", "廖子喬"],
+                        detail: "學分簽到退紙筆確認"
+                    },
+                    {
+                        group: "攤位組-外場",
+                        leader: "郭泰裕",
+                        staffs: ["曾奕舜", "鄭九禎", "魏昆茹", "郭泰裕"],
+                        detail: "醫管科攤位軟硬體設備確認、設攤廠商設備確認、集點活動說明與識別證貼紙發放"
+                    },
+                    {
+                        group: "議事行政組-內場",
+                        leader: "黃麗如",
+                        staffs: ["黃麗如", "郭郁伶", "黃雅芬", "劉育菁", "楊玟蒨", "陳榮彬", "吳雪嬌", "許錦睿", "王品文", "張巧瑩", "陳美璉"],
+                        detail: "主會場現場場控、控台測試播放資料與音控設備測試、合照/致詞/頒感謝狀走位彩排"
+                    },
+                    {
+                        group: "攝影組",
+                        leader: "黃耀德",
+                        staffs: ["黃耀德", "陳琨勝", "楊宗哲", "曾祥彥"],
+                        detail: "配合主會場總彩排走位拍攝與攝影動線確認"
+                    }
+                ]
+            },
+            {
+                id: "s104_2",
+                day: "10/4",
+                time: "11:10 - 12:30",
+                mainProcess: "工作人員用餐與最後預備",
+                location: "報到處 / 展攤區",
+                tasks: [
+                    {
+                        group: "報到接待組-外場",
+                        leader: "楊顓賓",
+                        staffs: ["李月玲"],
+                        detail: "11:00 便當、餐盒送達簽收"
+                    },
+                    {
+                        group: "議事行政組-內場",
+                        leader: "黃麗如",
+                        staffs: ["張巧瑩", "陳美璉"],
+                        detail: "工作人員便當發送"
+                    },
+                    {
+                        group: "攝影組",
+                        leader: "黃耀德",
+                        staffs: ["陳琨勝"],
+                        detail: "設攤人員餐盒發送（與醫管科同仁）"
+                    },
+                    {
+                        group: "總督導",
+                        leader: "韓佩軒",
+                        staffs: ["全體工作人員"],
+                        detail: "12:15 環境檢視、物資確認，全體工作人員預備定位"
+                    }
+                ]
+            },
+            {
+                id: "s104_3",
+                day: "10/4",
+                time: "12:30 - 13:30",
+                mainProcess: "觀摩會報到與貴賓入場",
+                location: "報到處 / 貴賓室 / 主會場",
+                tasks: [
+                    {
+                        group: "報到接待組-外場",
+                        leader: "楊顓賓",
+                        staffs: ["楊顓賓", "賴阿薪", "洪欀皊", "李月玲", "張家綾", "林紋年", "張可冀", "陳秀宜", "仇文玲", "黃昭瑢", "陳榮彬", "陳佳玟", "陳祈君"],
+                        detail: "各類別（牙醫/藥事/貴賓/政府/中醫/資服/西醫）報到服務；貴賓簽到並即時回報麗如科長與郁伶"
+                    },
+                    {
+                        group: "攝影組",
+                        leader: "黃耀德",
+                        staffs: ["黃耀德", "陳琨勝", "楊宗哲", "曾祥彥"],
+                        detail: "全程跟拍長官、主視覺背板引導拍照、捕捉長官貴賓畫面"
+                    },
+                    {
+                        group: "學分組-外場",
+                        leader: "梁家瑋",
+                        staffs: ["梁家瑋", "陳瑩玲", "吳孜威", "廖子喬"],
+                        detail: "協助學分簽到"
+                    },
+                    {
+                        group: "攤位組-外場",
+                        leader: "郭泰裕",
+                        staffs: ["曾奕舜", "鄭九禎", "魏昆茹", "郭泰裕"],
+                        detail: "醫管科攤位駐點服務，展攤即時問題排除"
+                    },
+                    {
+                        group: "貴賓接待組",
+                        leader: "蘇專委",
+                        staffs: ["張家綾", "李月玲"],
+                        detail: "貴賓室接待服務及副署長致詞稿確認"
+                    },
+                    {
+                        group: "議事行政組-內場",
+                        leader: "黃麗如",
+                        staffs: ["賴阿薪", "洪欀皊", "劉育菁", "楊玟蒨", "黃雅芬"],
+                        detail: "貴賓入場座位引導、音控及投影幕播放輕音樂"
+                    }
+                ]
+            },
+            {
+                id: "s104_4",
+                day: "10/4",
+                time: "13:30 - 13:35",
+                mainProcess: "開幕及貴賓致詞",
+                location: "主會場",
+                tasks: [
+                    {
+                        group: "議事行政組-內場",
+                        leader: "黃麗如",
+                        staffs: ["郭郁伶", "林瑜婷", "陳美璉", "許錦睿", "吳雪嬌", "張巧瑩", "王品文"],
+                        detail: "司儀開場；台上/台下引導長官貴賓致詞、遞收麥克風、準備感謝狀"
+                    }
+                ]
+            },
+            {
+                id: "s104_5",
+                day: "10/4",
+                time: "13:35 - 13:45",
+                mainProcess: "頒發感謝狀及合影（三階段唱名）",
+                location: "主會場",
+                tasks: [
+                    {
+                        group: "議事行政組-內場",
+                        leader: "黃麗如",
+                        staffs: ["郭郁伶", "林瑜婷", "陳美璉", "許錦睿", "吳雪嬌", "黃雅芬", "王品文"],
+                        detail: "司儀唱名；台上台下引導合照人員、音控播放頒獎音樂、遞送感謝狀"
+                    },
+                    {
+                        group: "攝影組",
+                        leader: "黃耀德",
+                        staffs: ["黃耀德", "陳琨勝", "楊宗哲", "曾祥彥"],
+                        detail: "台上頒獎及合影拍攝（重要片段錄影）"
+                    }
+                ]
+            },
+            {
+                id: "s104_6",
+                day: "10/4",
+                time: "13:45 - 13:50",
+                mainProcess: "台下大合影",
+                location: "主會場",
+                tasks: [
+                    {
+                        group: "議事行政組-內場",
+                        leader: "黃麗如",
+                        staffs: ["郭郁伶", "吳雪嬌", "陳榮彬", "許錦睿", "賴阿薪", "林瑜婷", "洪欀皊", "劉育菁", "楊玟蒨", "張巧瑩", "陳美璉"],
+                        detail: "司儀 Cue 合照動作；遞收合影布幅與手拿牌；張貼下一階段講者海報"
+                    },
+                    {
+                        group: "攝影組",
+                        leader: "黃耀德",
+                        staffs: ["黃耀德", "陳琨勝", "楊宗哲", "曾祥彥"],
+                        detail: "台下全體大合影拍攝"
+                    }
+                ]
+            },
+            {
+                id: "s104_7",
+                day: "10/4",
+                time: "13:50 - 14:00",
+                mainProcess: "專題報告：健保數位轉型政策（郭俊麟科長）",
+                location: "主會場 / 報到處",
+                tasks: [
+                    {
+                        group: "議事行政組-內場",
+                        leader: "黃麗如",
+                        staffs: ["郭郁伶", "林瑜婷", "許錦睿", "張巧瑩", "黃雅芬", "陳榮彬", "吳雪嬌"],
+                        detail: "講者介紹、左右側上台引導、提供簡報筆麥克風、簡報播放與計時舉牌"
+                    },
+                    {
+                        group: "報到接待組-外場",
+                        leader: "楊顓賓",
+                        staffs: ["李月玲", "張家綾", "陳秀宜", "仇文玲", "黃昭瑢"],
+                        detail: "貴賓禮品及餐盒裝袋確認"
+                    }
+                ]
+            },
+            {
+                id: "s104_8",
+                day: "10/4",
+                time: "14:00 - 14:20",
+                mainProcess: "專題報告：雲端暨資安趨勢",
+                location: "主會場 / 報到處",
+                tasks: [
+                    {
+                        group: "議事行政組-內場",
+                        leader: "黃麗如",
+                        staffs: ["郭郁伶", "王品文", "陳美璉", "林瑜婷", "許錦睿", "吳雪嬌", "黃雅芬", "劉育菁", "楊玟蒨"],
+                        detail: "講者介紹、換講者海報、引導上台、播放簡報、計時舉牌"
+                    },
+                    {
+                        group: "報到接待組-外場",
+                        leader: "楊顓賓",
+                        staffs: ["陳秀宜", "仇文玲", "黃昭瑢", "林紋年", "張可冀", "陳佳玟", "陳祈君", "李月玲", "張家綾", "蔡一緯"],
+                        detail: "集點獎品確認、茶點區巡查確認、確認張副署長離席時間並打包茶點禮品"
+                    },
+                    {
+                        group: "攤位組-外場",
+                        leader: "郭泰裕",
+                        staffs: ["郭泰裕"],
+                        detail: "協助茶點區確認與巡視"
+                    }
+                ]
+            },
+            {
+                id: "s104_9",
+                day: "10/4",
+                time: "14:20 - 14:30",
+                mainProcess: "專題報告：AI創新應用",
+                location: "主會場 / 報到處 / 展攤區",
+                tasks: [
+                    {
+                        group: "議事行政組-內場",
+                        leader: "黃麗如",
+                        staffs: ["郭郁伶", "王品文", "陳美璉", "林瑜婷", "許錦睿", "張巧瑩", "黃雅芬", "陳榮彬", "吳雪嬌"],
+                        detail: "講者介紹、更換海報、上台引導、播放簡報與計時舉牌"
+                    },
+                    {
+                        group: "報到接待組-外場",
+                        leader: "楊顓賓",
+                        staffs: ["陳秀宜", "仇文玲", "黃昭瑢", "林紋年", "張可冀", "陳佳玟", "陳祈君", "李月玲", "張家綾"],
+                        detail: "集點兌換服務準備、貴賓室收拾整理"
+                    },
+                    {
+                        group: "攤位組-外場",
+                        leader: "郭泰裕",
+                        staffs: ["郭泰裕", "曾奕舜", "鄭九禎", "魏昆茹"],
+                        detail: "醫管科及設攤廠商攤位準備與狀況確認"
+                    }
+                ]
+            },
+            {
+                id: "s104_10",
+                day: "10/4",
+                time: "14:30 - 15:00",
+                mainProcess: "茶敘及展攤交流（集點送好禮）",
+                location: "展攤區 / 報到處 / 主會場",
+                tasks: [
+                    {
+                        group: "議事行政組-內場",
+                        leader: "黃麗如",
+                        staffs: ["黃雅芬", "郭郁伶", "王品文", "陳美璉", "林瑜婷"],
+                        detail: "控台切換為展攤圖與集點規則；司儀說明集點規則；貼下半場海報；茶點補給"
+                    },
+                    {
+                        group: "司機",
+                        leader: "蔡一緯",
+                        staffs: ["蔡一緯", "李月玲"],
+                        detail: "張副署長 14:40 離席歡送與接送"
+                    },
+                    {
+                        group: "報到接待組-外場",
+                        leader: "楊顓賓",
+                        staffs: ["陳秀宜", "仇文玲", "黃昭瑢", "林紋年", "張可冀", "陳佳玟", "陳祈君", "全體外場人員"],
+                        detail: "集點獎品發放（核對後識別證打勾）；14:55 提醒與會人員進場"
+                    },
+                    {
+                        group: "攤位組-外場",
+                        leader: "郭泰裕",
+                        staffs: ["楊顓賓", "郭泰裕"],
+                        detail: "攤位巡查及即時問題排除"
+                    },
+                    {
+                        group: "攝影組",
+                        leader: "黃耀德",
+                        staffs: ["黃耀德", "陳琨勝", "楊宗哲", "曾祥彥"],
+                        detail: "展攤與茶敘區動態、平面花絮捕捉"
+                    }
+                ]
+            },
+            {
+                id: "s104_11",
+                day: "10/4",
+                time: "15:00 - 15:30",
+                mainProcess: "專題報告：雲端HIS系統分享",
+                location: "主會場 / 學分區 / 報到處",
+                tasks: [
+                    {
+                        group: "議事行政組-內場",
+                        leader: "黃麗如",
+                        staffs: ["郭郁伶", "林瑜婷", "許錦睿", "張巧瑩", "黃雅芬", "劉育菁", "楊玟蒨"],
+                        detail: "講者介紹、引導上台、播放簡報、計時舉牌"
+                    },
+                    {
+                        group: "學分組-外場",
+                        leader: "梁家瑋",
+                        staffs: ["梁家瑋", "陳瑩玲", "吳孜威", "廖子喬"],
+                        detail: "最早 15:00 開放學分簽退（彈性辦理）"
+                    },
+                    {
+                        group: "報到接待組-外場",
+                        leader: "楊顓賓",
+                        staffs: ["陳秀宜", "仇文玲", "黃昭瑢", "林紋年", "張可冀", "陳佳玟", "陳祈君"],
+                        detail: "參加者禮品確認與擺放"
+                    }
+                ]
+            },
+            {
+                id: "s104_12",
+                day: "10/4",
+                time: "15:30 - 16:00",
+                mainProcess: "座談會：轉型上雲案例座談",
+                location: "主會場 / 報到區 / 學分區",
+                tasks: [
+                    {
+                        group: "議事行政組-內場",
+                        leader: "黃麗如",
+                        staffs: ["郭郁伶", "楊顓賓", "陳美璉", "陳琨勝", "陳榮彬", "曾祥彥", "楊宗哲", "劉育菁", "楊玟蒨", "賴阿薪", "洪欀皊", "林瑜婷", "許錦睿", "張巧瑩", "吳雪嬌"],
+                        detail: "司儀串場；茶幾沙發擺設；桌牌水麥克風確認；多位與談人左右側引導上台；計時舉牌"
+                    },
+                    {
+                        group: "學分組-外場",
+                        leader: "梁家瑋",
+                        staffs: ["梁家瑋", "陳瑩玲", "吳孜威", "廖子喬"],
+                        detail: "協助學分簽退"
+                    },
+                    {
+                        group: "報到接待組-外場",
+                        leader: "楊顓賓",
+                        staffs: ["楊顓賓", "陳秀宜", "仇文玲", "黃昭瑢", "林紋年", "張可冀", "陳佳玟", "陳祈君"],
+                        detail: "參加者禮品擺放及發放準備"
+                    },
+                    {
+                        group: "攤位組-外場",
+                        leader: "郭泰裕",
+                        staffs: ["李月玲", "郭泰裕", "曾奕舜", "鄭九禎", "魏昆茹"],
+                        detail: "茶敘餐點打包整理"
+                    }
+                ]
+            },
+            {
+                id: "s104_13",
+                day: "10/4",
+                time: "16:00 - ",
+                mainProcess: "賦歸與全體場復",
+                location: "全會場",
+                tasks: [
+                    {
+                        group: "總督導",
+                        leader: "韓佩軒",
+                        staffs: ["郭郁伶", "韓佩軒", "場內全體工作人員"],
+                        detail: "宣告活動圓滿結束；引導聽眾至會場外以識別證兌換禮品；協助場地復原"
+                    },
+                    {
+                        group: "報到接待組-外場",
+                        leader: "楊顓賓",
+                        staffs: ["李月玲", "張家綾", "郭泰裕", "陳秀宜", "仇文玲", "黃昭瑢", "林紋年", "張可冀", "陳佳玟", "陳祈君"],
+                        detail: "貴賓禮品發放；參加者回收識別證並兌換活動禮品"
+                    },
+                    {
+                        group: "學分組-外場",
+                        leader: "梁家瑋",
+                        staffs: ["梁家瑋", "陳瑩玲", "吳孜威", "廖子喬"],
+                        detail: "協助最終學分簽退作業"
+                    }
+                ]
+            }
+        ];
+
+        // ==================== APP 狀態與邏輯 ====================
+        let currentUser = null;
+        let currentDay = "10/3";
+        let expandedItems = {}; // 紀錄展開狀態 { itemId: boolean }
+
+        // 初始化
+        window.onload = function() {
+            initUnitDropdown();
+        };
+
+        // 1. 初始化單位選單
+        function initUnitDropdown() {
+            const unitSelect = document.getElementById('unit-select');
+            const units = [...new Set(staffData.map(item => item.unit))];
+            
+            units.forEach(unit => {
+                const opt = document.createElement('option');
+                opt.value = unit;
+                opt.textContent = unit;
+                unitSelect.appendChild(opt);
+            });
+        }
+
+        // 2. 當選擇單位時，動態載入該單位人員
+        function onUnitChange() {
+            const unitSelect = document.getElementById('unit-select');
+            const personSelect = document.getElementById('person-select');
+            const selectedUnit = unitSelect.value;
+
+            personSelect.innerHTML = '<option value="">-- 請選擇人員 --</option>';
+
+            if (!selectedUnit) {
+                personSelect.disabled = true;
+                return;
+            }
+
+            const filteredStaff = staffData.filter(s => s.unit === selectedUnit);
+            filteredStaff.forEach(staff => {
+                const opt = document.createElement('option');
+                opt.value = staff.name;
+                opt.textContent = staff.name;
+                personSelect.appendChild(opt);
+            });
+
+            personSelect.disabled = false;
+        }
+
+        // 3. 點擊「進入」個人工作台
+        function enterMainApp() {
+            const personSelect = document.getElementById('person-select');
+            const selectedName = personSelect.value;
+
+            if (!selectedName) {
+                alert('請先選擇單位與人員姓名！');
+                return;
+            }
+
+            currentUser = staffData.find(s => s.name === selectedName);
+            updateHeaderInfo();
+            
+            // 隱藏封面頁
+            document.getElementById('cover-screen').classList.add('hidden');
+            
+            // 渲染時程表
+            renderTimeline();
+        }
+
+        // 4. 切換人員 (回到選擇頁)
+        function switchUser() {
+            document.getElementById('cover-screen').classList.remove('hidden');
+        }
+
+        // 5. 更新頂部固定欄資訊
+        function updateHeaderInfo() {
+            if (!currentUser) return;
+            document.getElementById('info-name').textContent = currentUser.name;
+            document.getElementById('info-unit').textContent = currentUser.unit;
+            document.getElementById('info-group').textContent = currentUser.group;
+            document.getElementById('info-leader').textContent = currentUser.leader;
+            document.getElementById('user-avatar').textContent = currentUser.name.substring(0, 1);
+        }
+
+        // 6. 切換日期 (10/3 vs 10/4)
+        function switchDay(day) {
+            currentDay = day;
+            const tabDay1 = document.getElementById('tab-day1');
+            const tabDay2 = document.getElementById('tab-day2');
+
+            if (day === '10/3') {
+                tabDay1.className = "flex-1 py-2.5 text-yellow-300 border-b-2 border-yellow-300 bg-blue-800/80 font-bold transition-all";
+                tabDay2.className = "flex-1 py-2.5 text-blue-200 hover:text-white border-b-2 border-transparent transition-all";
+            } else {
+                tabDay2.className = "flex-1 py-2.5 text-yellow-300 border-b-2 border-yellow-300 bg-blue-800/80 font-bold transition-all";
+                tabDay1.className = "flex-1 py-2.5 text-blue-200 hover:text-white border-b-2 border-transparent transition-all";
+            }
+
+            renderTimeline();
+        }
+
+        // 7. 切換[展開/折疊]其他組別任務
+        function toggleExpand(itemId) {
+            expandedItems[itemId] = !expandedItems[itemId];
+            renderTimeline();
+        }
+
+        // 8. 核心渲染時間軸
+        function renderTimeline() {
+            const container = document.getElementById('timeline-container');
+            container.innerHTML = '';
+
+            const items = scheduleData.filter(item => item.day === currentDay);
+
+            if (items.length === 0) {
+                container.innerHTML = `<div class="text-center py-10 text-gray-400">尚無相關時程資料</div>`;
+                return;
+            }
+
+            items.forEach(item => {
+                // 尋找當前使用者在該時段是否有任務
+                const myTasks = item.tasks.filter(t => t.staffs.includes(currentUser.name) || t.staffs.includes("全體工作人員") || t.staffs.includes("場內全體工作人員") || t.staffs.includes("全體外場人員"));
+                const isExpanded = !!expandedItems[item.id];
+                const hasMyTask = myTasks.length > 0;
+
+                const card = document.createElement('div');
+                card.className = `bg-white rounded-2xl p-4 shadow-sm border transition-all ${hasMyTask ? 'border-blue-400 ring-2 ring-blue-100' : 'border-gray-200'}`;
+
+                // Header Info inside Card
+                let html = `
+                    <div class="flex justify-between items-start border-b border-gray-100 pb-2.5 mb-2.5">
+                        <div>
+                            <span class="inline-block bg-blue-100 text-blue-800 text-xs font-black px-2.5 py-0.5 rounded-md mr-1.5">
+                                <i class="far fa-clock mr-1"></i>${item.time}
+                            </span>
+                            <span class="text-xs font-semibold text-gray-500">
+                                <i class="fas fa-map-marker-alt text-red-400 mr-1"></i>${item.location}
+                            </span>
+                            <h3 class="font-bold text-gray-800 text-sm mt-1.5">${item.mainProcess}</h3>
+                        </div>
+                        ${hasMyTask ? '<span class="shrink-0 bg-amber-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm">有您的工作</span>' : ''}
+                    </div>
+                `;
+
+                // 呈現當前使用者工作內容 (預設顯示)
+                html += `<div class="space-y-2">`;
+
+                if (hasMyTask) {
+                    myTasks.forEach(task => {
+                        html += `
+                            <div class="bg-blue-50/80 rounded-xl p-2.5 border border-blue-200">
+                                <div class="flex items-center justify-between mb-1">
+                                    <span class="text-xs font-bold text-blue-900 flex items-center gap-1">
+                                        <i class="fas fa-tasks text-blue-600"></i> ${task.group}
+                                    </span>
+                                    <span class="text-[11px] text-gray-500">組長: ${task.leader}</span>
+                                </div>
+                                <p class="text-xs text-gray-700 leading-relaxed font-medium pl-1">${task.detail}</p>
+                            </div>
+                        `;
+                    });
+                } else {
+                    html += `<div class="text-xs text-gray-400 italic py-1 pl-1">此時段您無特定指定分工</div>`;
+                }
+
+                // 展開其他組別按鈕與內容
+                const otherTasks = item.tasks.filter(t => !myTasks.includes(t));
+
+                if (otherTasks.length > 0) {
+                    if (isExpanded) {
+                        html += `
+                            <div class="mt-3 pt-2.5 border-t border-dashed border-gray-200 space-y-2">
+                                <div class="text-[11px] font-bold text-gray-400 mb-1">所有組別分工細節：</div>
+                        `;
+                        
+                        item.tasks.forEach(task => {
+                            const isMine = myTasks.includes(task);
+                            html += `
+                                <div class="rounded-lg p-2 text-xs ${isMine ? 'bg-blue-50 border border-blue-200' : 'bg-gray-50 border border-gray-200'}">
+                                    <div class="font-bold ${isMine ? 'text-blue-800' : 'text-gray-700'} flex justify-between">
+                                        <span>${task.group} ${isMine ? '(您的組別)' : ''}</span>
+                                        <span class="text-[10px] text-gray-400 font-normal">組員: ${task.staffs.join('、')}</span>
+                                    </div>
+                                    <p class="text-gray-600 text-[11px] mt-1">${task.detail}</p>
+                                </div>
+                            `;
+                        });
+
+                        html += `</div>`;
+
+                        html += `
+                            <button onclick="toggleExpand('${item.id}')" class="w-full mt-2.5 text-center text-xs text-gray-500 hover:text-blue-600 font-medium py-1 bg-gray-50 hover:bg-gray-100 rounded-lg transition border border-gray-200">
+                                收起其他組別工作 <i class="fas fa-chevron-up text-[10px]"></i>
+                            </button>
+                        `;
+                    } else {
+                        html += `
+                            <button onclick="toggleExpand('${item.id}')" class="w-full mt-2 text-center text-xs text-blue-600 hover:text-blue-800 font-bold py-1.5 bg-blue-50/50 hover:bg-blue-100/50 rounded-lg transition border border-blue-100 flex items-center justify-center gap-1">
+                                [展開] 查看其他組別工作內容 (${otherTasks.length}) <i class="fas fa-chevron-down text-[10px]"></i>
+                            </button>
+                        `;
+                    }
+                }
+
+                html += `</div>`;
+                card.innerHTML = html;
+                container.appendChild(card);
+            });
+        }
+    </script>
+</body>
+</html>
