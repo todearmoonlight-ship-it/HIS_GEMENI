@@ -10,7 +10,7 @@
     <link rel="icon" type="image/png" href="HIS.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="apple-mobile-web-app-title" content="HIS觀摩會">
+    <meta name="apple-mobile-web-app-title" content="觀摩會工作APP">
 
     <!-- Tailwind CSS & FontAwesome -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -49,13 +49,13 @@
             <!-- Top Banner Header -->
             <div class="mt-6 text-center bg-white/40 backdrop-blur-md p-4 rounded-2xl border border-white/60 shadow-sm">
                 <div class="inline-flex items-center gap-2 bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-bold mb-2 shadow-sm">
-                    <i class="fas fa-bullhorn text-yellow-300"></i> 南區業務組
+                    <i class="fas fa-bullhorn text-yellow-300"></i> 南區業務組 誠摯邀請
                 </div>
                 <h1 class="text-xl font-black leading-tight text-blue-950 drop-shadow-sm">
                     基層醫療院所資訊服務系統<br>
                     <span class="text-blue-700 text-2xl">數位轉型觀摩會</span>
                 </h1>
-                <p class="text-xs text-blue-900 mt-1 font-semibold">工作人員任務指引</p>
+                <p class="text-xs text-blue-900 mt-1 font-semibold">工作人員個人任務與流程指引 APP</p>
             </div>
 
             <!-- Bottom Selection Form -->
@@ -111,10 +111,10 @@
                     <button onclick="openNoticeModal()" class="bg-amber-500 hover:bg-amber-600 active:scale-95 text-white text-xs px-2 py-1 rounded-lg font-bold flex items-center gap-1 shadow-sm transition">
                         <i class="fas fa-info-circle text-yellow-200"></i> 注意事項
                     </button>
-                    <!-- 連結完整版 PDF (work.pdf) -->
-                    <a href="work.pdf" target="_blank" class="bg-red-500 hover:bg-red-600 active:scale-95 text-white text-xs px-2 py-1 rounded-lg font-bold flex items-center gap-1 shadow-sm transition">
+                    <!-- 開啟完整版 PDF 彈視窗按鈕 -->
+                    <button onclick="openPdfModal()" class="bg-red-500 hover:bg-red-600 active:scale-95 text-white text-xs px-2 py-1 rounded-lg font-bold flex items-center gap-1 shadow-sm transition">
                         <i class="fas fa-file-pdf"></i> 完整PDF
-                    </a>
+                    </button>
                 </div>
             </div>
 
@@ -277,13 +277,44 @@
             </div>
         </div>
 
+        <!-- ==================== 5. PDF 預覽彈視窗 (Modal) ==================== -->
+        <div id="pdf-modal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden flex items-center justify-center p-2 sm:p-4">
+            <div class="bg-white w-full max-w-md h-[90vh] rounded-3xl overflow-hidden shadow-2xl relative flex flex-col">
+                
+                <!-- PDF Modal Header (含關閉 X 按鈕) -->
+                <div class="bg-slate-900 text-white px-4 py-3 flex justify-between items-center shrink-0">
+                    <div class="flex items-center gap-2 text-sm font-bold">
+                        <i class="fas fa-file-pdf text-red-400"></i> 完整工作分配表 PDF
+                    </div>
+                    <!-- 右上角關閉 [X] 按鈕 -->
+                    <button onclick="closePdfModal()" class="w-8 h-8 bg-gray-800 hover:bg-red-600 rounded-full flex items-center justify-center text-white font-bold text-lg transition shadow">
+                        ✕
+                    </button>
+                </div>
+
+                <!-- PDF 預覽內嵌區 -->
+                <div class="flex-1 w-full h-full bg-gray-100 relative">
+                    <iframe id="pdf-frame" src="" class="w-full h-full border-0"></iframe>
+                </div>
+
+                <!-- PDF Bottom Bar (備用下載按鈕) -->
+                <div class="bg-slate-100 p-2 text-center text-xs border-t border-gray-200 flex justify-between items-center px-4 shrink-0">
+                    <span class="text-gray-500 text-[11px]">如無法正常顯示，請點選下載查看</span>
+                    <a href="work.pdf" download class="text-blue-600 font-bold hover:underline flex items-center gap-1">
+                        <i class="fas fa-download"></i> 下載檔案
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
     </div>
 
     <!-- JavaScript Data & Logic -->
     <script>
         // ==================== 全局資料數據庫 ====================
         
-        // 人員與單位分工資料 (最新修正 42人名單)
+        // 人員與單位分工資料 (42人名單)
         const staffData = [
             // 企劃小組
             { name: "韓佩軒", unit: "企劃小組", group: "總督導", leader: "韓佩軒組長、賴大年副組長" },
@@ -938,7 +969,20 @@
             document.getElementById('notice-modal').classList.add('hidden');
         }
 
-        // 6. 更新頂部固定欄資訊
+        // 6. PDF Modal 預覽與關閉操作
+        function openPdfModal() {
+            const pdfFrame = document.getElementById('pdf-frame');
+            pdfFrame.src = 'work.pdf'; // 載入 PDF
+            document.getElementById('pdf-modal').classList.remove('hidden');
+        }
+
+        function closePdfModal() {
+            const pdfFrame = document.getElementById('pdf-frame');
+            pdfFrame.src = ''; // 清空資源
+            document.getElementById('pdf-modal').classList.add('hidden');
+        }
+
+        // 7. 更新頂部固定欄資訊
         function updateHeaderInfo() {
             if (!currentUser) return;
             document.getElementById('info-name').textContent = currentUser.name;
@@ -948,7 +992,7 @@
             document.getElementById('user-avatar').textContent = currentUser.name.substring(0, 1);
         }
 
-        // 7. 切換日期 (10/3 vs 10/4)
+        // 8. 切換日期 (10/3 vs 10/4)
         function switchDay(day) {
             currentDay = day;
             const tabDay1 = document.getElementById('tab-day1');
@@ -965,13 +1009,13 @@
             renderTimeline();
         }
 
-        // 8. 切換[展開/折疊]其他組別任務
+        // 9. 切換[展開/折疊]其他組別任務
         function toggleExpand(itemId) {
             expandedItems[itemId] = !expandedItems[itemId];
             renderTimeline();
         }
 
-        // 9. 核心渲染時間軸
+        // 10. 核心渲染時間軸
         function renderTimeline() {
             const container = document.getElementById('timeline-container');
             container.innerHTML = '';
